@@ -1,0 +1,736 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="Scrapy是一个非常好的抓取框架，它提供了一些开箱可用的基础组件，还能够根据需要进行自定义。 下面就Mac下安装Scrapy的步骤及遇到的错误进行总结： 安装Scrapy打开终端执行命令： sudo easy_install pippip 和 easy_install 都是 Python 的框架管理命令，pip 是对 easy_install的升级。 然后终端执行命令安装 Scrapy： sud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac安装Scrapy(一)">
+<meta property="og:url" content="http://yoursite.com/2016/05/17/Mac安装Scrapy/index.html">
+<meta property="og:site_name" content="南风">
+<meta property="og:description" content="Scrapy是一个非常好的抓取框架，它提供了一些开箱可用的基础组件，还能够根据需要进行自定义。 下面就Mac下安装Scrapy的步骤及遇到的错误进行总结： 安装Scrapy打开终端执行命令： sudo easy_install pippip 和 easy_install 都是 Python 的框架管理命令，pip 是对 easy_install的升级。 然后终端执行命令安装 Scrapy： sud">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T03:10:33.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac安装Scrapy(一)">
+<meta name="twitter:description" content="Scrapy是一个非常好的抓取框架，它提供了一些开箱可用的基础组件，还能够根据需要进行自定义。 下面就Mac下安装Scrapy的步骤及遇到的错误进行总结： 安装Scrapy打开终端执行命令： sudo easy_install pippip 和 easy_install 都是 Python 的框架管理命令，pip 是对 easy_install的升级。 然后终端执行命令安装 Scrapy： sud">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Mac安装Scrapy(一) | 南风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">南风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mac安装Scrapy(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-17T13:49:20+08:00" content="2016-05-17">
+              2016-05-17
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫系列/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫系列</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Scrapy是一个非常好的抓取框架，它提供了一些开箱可用的基础组件，还能够根据需要进行自定义。</p>
+<p>下面就Mac下安装Scrapy的步骤及遇到的错误进行总结：</p>
+<h2 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h2><p>打开终端执行命令：</p>
+<pre><code>sudo easy_install pip</code></pre><p>pip 和 easy_install 都是 Python 的框架管理命令，pip 是对 easy_install的升级。</p>
+<p>然后终端执行命令安装 Scrapy：</p>
+<pre><code>sudo pip install Scrapy</code></pre><p>如果执行成功，那么 Scrapy 就安装成功了。</p>
+<h3 id="错误1："><a href="#错误1：" class="headerlink" title="错误1："></a>错误1：</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> Found existing installation: six 1.4.1</span><br><span class="line">    DEPRECATION: Uninstalling a distutils installed project (six) has been deprecated and will be removed <span class="keyword">in</span> a future <span class="keyword">version</span>. This is due to the <span class="keyword">fact</span> that uninstalling a distutils project will only partially uninstall the project.</span><br><span class="line">    Uninstalling six-1.4.1:</span><br><span class="line">Exception:</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/basecommand.py"</span>, <span class="keyword">line</span> 215, <span class="keyword">in</span> main</span><br><span class="line">    status = self.<span class="keyword">run</span>(options, <span class="keyword">args</span>)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/commands/install.py"</span>, <span class="keyword">line</span> 317, <span class="keyword">in</span> <span class="keyword">run</span></span><br><span class="line">    prefix=options.prefix_path,</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/req/req_set.py"</span>, <span class="keyword">line</span> 736, <span class="keyword">in</span> install</span><br><span class="line">    requirement.uninstall(auto_confirm=True)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/req/req_install.py"</span>, <span class="keyword">line</span> 742, <span class="keyword">in</span> uninstall</span><br><span class="line">    paths_to_remove.remove(auto_confirm)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/req/req_uninstall.py"</span>, <span class="keyword">line</span> 115, <span class="keyword">in</span> remove</span><br><span class="line">    renames(path, new_path)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/pip-8.1.2-py2.7.egg/pip/utils/__init__.py"</span>, <span class="keyword">line</span> 267, <span class="keyword">in</span> renames</span><br><span class="line">    shutil.<span class="keyword">move</span>(old, new)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.py"</span>, <span class="keyword">line</span> 302, <span class="keyword">in</span> <span class="keyword">move</span></span><br><span class="line">    copy2(src, real_dst)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.py"</span>, <span class="keyword">line</span> 131, <span class="keyword">in</span> copy2</span><br><span class="line">    copystat(src, dst)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.py"</span>, <span class="keyword">line</span> 103, <span class="keyword">in</span> copystat</span><br><span class="line">    os.chflags(dst, <span class="keyword">st</span>.st_flags)</span><br><span class="line">OSError: [Errno 1] Operation not permitted: '/tmp/pip-ZqW0ai-uninstall/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/six-1.4.1-py2.7.egg-info'</span><br></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<pre><code>sudo pip install --ignore-installed six</code></pre><h3 id="错误2："><a href="#错误2：" class="headerlink" title="错误2："></a>错误2：</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">In</span> file included <span class="keyword">from</span> src/lxml/lxml.etree.c:<span class="number">320</span>:</span><br><span class="line">    src/lxml/includes/etree_defs.h:<span class="number">14</span>:<span class="number">10</span>: fatal error: <span class="string">'libxml/xmlversion.h'</span> file <span class="built_in">not</span> found</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"libxml/xmlversion.h"</span></span></span><br><span class="line">             ^</span><br><span class="line">    <span class="number">1</span> error generated.</span><br><span class="line">    <span class="built_in">Compile</span> failed: command <span class="string">'cc'</span> failed <span class="keyword">with</span> <span class="keyword">exit</span> status <span class="number">1</span></span><br><span class="line">    creating tmp</span><br><span class="line">    cc -I/usr/include/libxml2 -I/usr/include/libxml2 -c /tmp/xmlXPathInitmCebQ0.c -o tmp/xmlXPathInitmCebQ0.o</span><br><span class="line">    /tmp/xmlXPathInitmCebQ0.c:<span class="number">1</span>:<span class="number">10</span>: fatal error: <span class="string">'libxml/xpath.h'</span> file <span class="built_in">not</span> found</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"libxml/xpath.h"</span></span></span><br><span class="line">             ^</span><br><span class="line">    <span class="number">1</span> error generated.</span><br><span class="line">    *********************************************************************************</span><br><span class="line">    Could <span class="built_in">not</span> <span class="built_in">find</span> function xmlCheckVersion <span class="built_in">in</span> library libxml2. Is libxml2 installed?</span><br><span class="line">    Perhaps <span class="keyword">try</span>: xcode-<span class="built_in">select</span> --install</span><br><span class="line">    *********************************************************************************</span><br><span class="line">    error: command <span class="string">'cc'</span> failed <span class="keyword">with</span> <span class="keyword">exit</span> status <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command <span class="string">"/usr/bin/python -u -c "</span>import setuptools, tokenize;<span class="variable">__file__</span>=<span class="string">'/private/tmp/pip-build-yo_o0i/lxml/setup.py'</span>;<span class="built_in">exec</span>(<span class="built_in">compile</span>(getattr(tokenize, <span class="string">'open'</span>, open)(<span class="variable">__file__</span>).read().replace(<span class="string">'\r\n'</span>, <span class="string">'\n'</span>), <span class="variable">__file__</span>, <span class="string">'exec'</span>))<span class="string">" install --record /tmp/pip-2FEcHQ-record/install-record.txt --single-version-externally-managed --compile"</span> failed <span class="keyword">with</span> error code <span class="number">1</span> <span class="built_in">in</span> /<span class="keyword">private</span>/tmp/pip-build-yo_o0i/lxml/</span><br></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<pre><code>xcode-select --install</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/10/三种类型的Block/" rel="next" title="三种类型的Block">
+                <i class="fa fa-chevron-left"></i> 三种类型的Block
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/18/第一个Scrapy爬虫/" rel="prev" title="第一个Scrapy爬虫(二)">
+                第一个Scrapy爬虫(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://f.cl.ly/items/0e2Z2Y1r0s2h1d3Z2Q0u/Image%202016-05-20%20at%205.18.05%20PM.png" alt="翻盖的乌龟">
+          <p class="site-author-name" itemprop="name">翻盖的乌龟</p>
+          <p class="site-description motion-element" itemprop="description">沙滩一躺三年半，大浪来时我翻身。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Scrapy"><span class="nav-number">1.</span> <span class="nav-text">安装Scrapy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误1："><span class="nav-number">1.1.</span> <span class="nav-text">错误1：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误2："><span class="nav-number">1.2.</span> <span class="nav-text">错误2：</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">翻盖的乌龟</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

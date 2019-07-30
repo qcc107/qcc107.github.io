@@ -1,0 +1,897 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。 波纹的实现波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个水滴动画的实现">
+<meta property="og:url" content="http://yoursite.com/2015/09/14/一个水滴动画的实现/index.html">
+<meta property="og:site_name" content="南风">
+<meta property="og:description" content="由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。 波纹的实现波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于N">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T03:10:33.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个水滴动画的实现">
+<meta name="twitter:description" content="由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。 波纹的实现波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于N">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 一个水滴动画的实现 | 南风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">南风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一个水滴动画的实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-14T11:42:01+08:00" content="2015-09-14">
+              2015-09-14
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IT随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">IT随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。</p>
+<h2 id="波纹的实现"><a href="#波纹的实现" class="headerlink" title="波纹的实现"></a>波纹的实现</h2><p>波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于NSTimer，非常适合这种和屏幕刷新相关的操作。</p>
+<h3 id="加载波形层"><a href="#加载波形层" class="headerlink" title="加载波形层"></a>加载波形层</h3><pre><code>- (void)loadWaveLayers{
+
+if (!_waveLayers) 
+{
+    self.waveLayers = [[NSMutableArray alloc] initWithCapacity:3];
+
+    UIColor *whiteColor = [UIColor whiteColor];
+    UIColor *lightGrayColor = [UIColor colorWithRed:207/255.0f
+                                              green:207/255.0f
+                                               blue:207/255.0f
+                                              alpha:1.0f];
+    UIColor *darkGrayColor = [UIColor colorWithRed:159/255.0f
+                                             green:159/255.0f
+                                              blue:159/255.0f
+                                             alpha:1.0f];
+
+    NSArray *colors = @[darkGrayColor, lightGrayColor, whiteColor];
+
+    for (int i = 0; i &lt; 3; ++i) {
+        CAShapeLayer *waveLayer = [CAShapeLayer layer];
+        waveLayer.fillColor = ((UIColor *)colors[i]).CGColor;
+        [self.layer addSublayer:waveLayer];
+
+        [_waveLayers addObject:waveLayer];
+    }
+}
+}</code></pre><h3 id="设置定时器"><a href="#设置定时器" class="headerlink" title="设置定时器"></a>设置定时器</h3><pre><code>_frameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateVibrations:)];
+_frameTimer.frameInterval = 2;
+[_frameTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];</code></pre><h3 id="更新数值"><a href="#更新数值" class="headerlink" title="更新数值"></a>更新数值</h3><pre><code>- (void)updateVibrations:(CADisplayLink *)displayLink
+{
+if (_increase) {
+    _variable += 1 / 30.0f;
+}else{
+    _variable -= 1 / 30.0f;
+}
+
+if (_variable &lt;= 1) {
+    _increase = YES;
+}
+
+if (_variable &gt;= 1.6) {
+    _increase = NO;
+}
+
+_offsetX += _waveSpeed;
+
+[self drawWaveWithLayer:_waveLayers[0] amplitude:_variable * 3 waveCycle:1.5* M_PI / _waveWidth offsetY:20.0f];    // dark
+[self drawWaveWithLayer:_waveLayers[1] amplitude:_variable * 5 waveCycle:1.1 * M_PI / _waveWidth offsetY:22.0f];   // light
+[self drawWaveWithLayer:_waveLayers[2] amplitude:_variable * 10 waveCycle:1 * M_PI / _waveWidth offsetY:22.0f];    // white
+}</code></pre><h3 id="绘制正弦曲线"><a href="#绘制正弦曲线" class="headerlink" title="绘制正弦曲线"></a>绘制正弦曲线</h3><pre><code> - (void)drawWaveWithLayer:(CAShapeLayer *)waveLayer
+           amplitude:(CGFloat)amplitude
+           waveCycle:(CGFloat)waveCycle
+             offsetY:(CGFloat)offsetY
+{
+   CGMutablePathRef path = CGPathCreateMutable();
+   CGFloat y = self.bounds.size.height * 0.5f;
+   CGPathMoveToPoint(path, nil, 0, y);
+
+   for (float x = 0.0f; x &lt;=  _waveWidth ; x++) {
+       y = amplitude * sin(waveCycle * x + _offsetX) + self.frame.size.height * 0.5f + offsetY;   // 正弦波
+       CGPathAddLineToPoint(path, nil, x, y);
+   }
+
+   CGPathAddLineToPoint(path, nil, _waveWidth, self.frame.size.height);
+   CGPathAddLineToPoint(path, nil, 0, self.frame.size.height);
+   CGPathCloseSubpath(path);
+
+   waveLayer.path = path;
+   CGPathRelease(path);
+}</code></pre><h2 id="绘制水滴"><a href="#绘制水滴" class="headerlink" title="绘制水滴"></a>绘制水滴</h2><h3 id="绘制水滴的视图"><a href="#绘制水滴的视图" class="headerlink" title="绘制水滴的视图"></a>绘制水滴的视图</h3><p>自定义一个View继承自UIView,在drawRect中实现：</p>
+<pre><code>- (void)drawRect:(CGRect)rect {
+// Drawing code
+
+CGContextRef context = UIGraphicsGetCurrentContext();
+
+CGContextMoveToPoint(context, self.bounds.size.width * 0.5f, 0);
+
+[[UIColor whiteColor] set];
+CGContextSetLineWidth(context, 1.0);
+
+CGContextAddCurveToPoint(context,
+                         0,
+                         self.bounds.size.height,
+                         self.bounds.size.width,
+                         self.bounds.size.height,
+                         self.bounds.size.width * 0.5f,
+                         0);
+
+CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+CGContextFillPath(context);
+
+CGContextStrokePath(context);
+}</code></pre><p>   这里要保证水滴视图的宽高比为2：1，这样贝塞尔曲线绘制出来的才是水滴形状。</p>
+<h3 id="给水滴添加重力和碰撞检测"><a href="#给水滴添加重力和碰撞检测" class="headerlink" title="给水滴添加重力和碰撞检测"></a>给水滴添加重力和碰撞检测</h3><p>这里用到了UIKit动力学。</p>
+<pre><code>UIGravityBehavior *gravityBeahvior = [[UIGravityBehavior alloc] initWithItems:@[_dripView]];
+[_animator addBehavior:gravityBeahvior];
+
+UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[_dripView]];
+collisionBehavior.translatesReferenceBoundsIntoBoundary = NO;
+
+CGPoint rightEdge = CGPointMake(_barrierLine.frame.origin.x + _barrierLine.frame.size.width,
+                                _barrierLine.frame.origin.y);
+
+[collisionBehavior addBoundaryWithIdentifier:@&quot;barrier&quot;
+                            fromPoint:_barrierLine.frame.origin
+                              toPoint:rightEdge];
+collisionBehavior.collisionDelegate = (id)self;
+[_animator addBehavior:collisionBehavior];
+
+
+UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[_dripView, _barrierLine]];
+itemBehaviour.elasticity = 0.0;
+[_animator addBehavior:itemBehaviour];</code></pre><h2 id="水滴和波浪碰撞后的喷溅效果"><a href="#水滴和波浪碰撞后的喷溅效果" class="headerlink" title="水滴和波浪碰撞后的喷溅效果"></a>水滴和波浪碰撞后的喷溅效果</h2><h3 id="创建圆形水珠"><a href="#创建圆形水珠" class="headerlink" title="创建圆形水珠"></a>创建圆形水珠</h3><pre><code>- (void)splashWater
+{
+if (!_dripLayers) {
+    _dripLayers = [[NSMutableArray alloc] initWithCapacity:kDripCount];
+
+    for (int i = 0; i &lt; kDripCount; i++) {
+
+        CALayer *dripLayer = [CALayer layer];
+        [_dripLayers addObject:dripLayer];
+
+    }
+}
+
+for (int i = 0; i &lt; kDripCount; i++) {
+
+    [self performSelector:@selector(addAnimationToDrip:) withObject:_dripLayers[i] afterDelay:i * 0.01];
+}
+}</code></pre><h3 id="给水珠添加抛物线动画"><a href="#给水珠添加抛物线动画" class="headerlink" title="给水珠添加抛物线动画"></a>给水珠添加抛物线动画</h3><pre><code>- (void)addAnimationToDrip:(CALayer *)dripLayer
+{
+CGFloat width = arc4random() % 15 + 1;
+dripLayer.frame = CGRectMake((self.bounds.size.width - width)* 0.5f, self.bounds.size.height * 0.5f + 40, width, width);
+dripLayer.cornerRadius = dripLayer.frame.size.width * 0.5f;
+dripLayer.backgroundColor = [UIColor whiteColor].CGColor;
+
+[self.layer addSublayer:dripLayer];
+
+CGFloat x3 = arc4random() % ((int)self.bounds.size.width) + 1;
+CGFloat y3 = self.bounds.size.height * 0.5f + 40;
+
+CGFloat height = arc4random() % ((int)(self.bounds.size.height * 0.5f));
+
+[self throwDrip:dripLayer
+           from:dripLayer.position
+             to:CGPointMake(x3, y3)
+         height:height
+       duration:0.7f];
+ }
+
+
+ - (void)throwDrip:(CALayer *)drip
+         from:(CGPoint)start
+           to:(CGPoint)end
+       height:(CGFloat)height
+     duration:(CGFloat)duration
+{
+
+CGMutablePathRef path = CGPathCreateMutable();
+
+CGPathMoveToPoint(path, NULL, start.x, start.y);
+CGPathAddQuadCurveToPoint(path, NULL, (end.x + start.x) * 0.5f, -height, end.x, end.y);
+
+CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
+[animation setPath:path];
+animation.duration = duration;
+CFRelease(path);
+path = nil;Demotic
+
+[drip addAnimation:animation forKey:@&quot;position&quot;];
+}</code></pre><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/qcc107/WaterDropDemo.git" target="_blank" rel="noopener">WaterDropDemo</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/06/iOS中的仿射变换/" rel="next" title="iOS中的仿射变换">
+                <i class="fa fa-chevron-left"></i> iOS中的仿射变换
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/15/阻碍我们成功的八种行为/" rel="prev" title="阻碍我们成功的八种行为">
+                阻碍我们成功的八种行为 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://f.cl.ly/items/0e2Z2Y1r0s2h1d3Z2Q0u/Image%202016-05-20%20at%205.18.05%20PM.png" alt="翻盖的乌龟">
+          <p class="site-author-name" itemprop="name">翻盖的乌龟</p>
+          <p class="site-description motion-element" itemprop="description">沙滩一躺三年半，大浪来时我翻身。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#波纹的实现"><span class="nav-number">1.</span> <span class="nav-text">波纹的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载波形层"><span class="nav-number">1.1.</span> <span class="nav-text">加载波形层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置定时器"><span class="nav-number">1.2.</span> <span class="nav-text">设置定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数值"><span class="nav-number">1.3.</span> <span class="nav-text">更新数值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制正弦曲线"><span class="nav-number">1.4.</span> <span class="nav-text">绘制正弦曲线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制水滴"><span class="nav-number">2.</span> <span class="nav-text">绘制水滴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制水滴的视图"><span class="nav-number">2.1.</span> <span class="nav-text">绘制水滴的视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给水滴添加重力和碰撞检测"><span class="nav-number">2.2.</span> <span class="nav-text">给水滴添加重力和碰撞检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#水滴和波浪碰撞后的喷溅效果"><span class="nav-number">3.</span> <span class="nav-text">水滴和波浪碰撞后的喷溅效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建圆形水珠"><span class="nav-number">3.1.</span> <span class="nav-text">创建圆形水珠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给水珠添加抛物线动画"><span class="nav-number">3.2.</span> <span class="nav-text">给水珠添加抛物线动画</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">4.</span> <span class="nav-text">项目地址</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">翻盖的乌龟</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

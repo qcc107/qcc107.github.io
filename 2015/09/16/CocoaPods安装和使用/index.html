@@ -1,0 +1,877 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="CocoaPods是什么？当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库。总之，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。这个时候，你需要 CocoaPods。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaPods安装和使用">
+<meta property="og:url" content="http://yoursite.com/2015/09/16/CocoaPods安装和使用/index.html">
+<meta property="og:site_name" content="南风">
+<meta property="og:description" content="CocoaPods是什么？当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库。总之，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。这个时候，你需要 CocoaPods。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T03:10:33.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CocoaPods安装和使用">
+<meta name="twitter:description" content="CocoaPods是什么？当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库。总之，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。这个时候，你需要 CocoaPods。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CocoaPods安装和使用 | 南风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">南风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CocoaPods安装和使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-16T13:34:37+08:00" content="2015-09-16">
+              2015-09-16
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CocoaPods是什么？"><a href="#CocoaPods是什么？" class="headerlink" title="CocoaPods是什么？"></a>CocoaPods是什么？</h1><p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库。总之，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。这个时候，你需要 CocoaPods。</p>
+<p>CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</p>
+<h1 id="下载和安装"><a href="#下载和安装" class="headerlink" title="下载和安装"></a>下载和安装</h1><p>在安装CocoaPods之前，首先要在本地安装好Ruby环境。至于如何在Mac中安装好Ruby环境，请google一下，本文不再涉及。</p>
+<p>假如你在本地已经安装好Ruby环境，那么下载和安装CocoaPods将十分简单，只需要一行命令。在终端中输入以下命令：</p>
+<p>sudo gem install cocoapods<br>但是，且慢。如果你在天朝，在终端中敲入这个命令之后，会发现半天没有任何反应。原因无他，因为那堵墙阻挡了cocoapods.org。</p>
+<p>但是，是的，又但是（不过是个可喜的“但是”）。我们可以用淘宝的Ruby镜像来访问cocoapods。按照下面的顺序在终端中敲入依次敲入命令：</p>
+<p>$ gem sources –remove <a href="https://rubygems.org/" target="_blank" rel="noopener">https://rubygems.org/</a><br>//等有反应之后再敲入以下命令<br>$ gem sources -a <a href="http://ruby.taobao.org/" target="_blank" rel="noopener">http://ruby.taobao.org/</a><br>为了验证你的Ruby镜像是并且仅是taobao，可以用以下命令查看：</p>
+<p>$ gem sources -l<br>只有在终端中出现下面文字才表明你上面的命令是成功的：</p>
+<p><strong>* CURRENT SOURCES *</strong></p>
+<p><a href="http://ruby.taobao.org/" target="_blank" rel="noopener">http://ruby.taobao.org/</a><br>上面所有的命令完成之时，你再次在终端中运行：</p>
+<p>$ sudo gem install cocoapods<br>等上十几秒钟，CocoaPods就可以在你本地下载并且安装好了，不再需要其他设置。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>好了，安装好CocoPods之后，接下来就是使用它。所幸，使用CocoPods和安装它一样简单，也是通过一两行命令就可以搞定。</p>
+<h1 id="场景1：利用CocoaPods，在项目中导入AFNetworking类库"><a href="#场景1：利用CocoaPods，在项目中导入AFNetworking类库" class="headerlink" title="场景1：利用CocoaPods，在项目中导入AFNetworking类库"></a>场景1：利用CocoaPods，在项目中导入AFNetworking类库</h1><p>AFNetworking类库在GitHub地址是：<a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="noopener">https://github.com/AFNetworking/AFNetworking</a></p>
+<p>为了确定AFNetworking是否支持CocoaPods，可以用CocoaPods的搜索功能验证一下。在终端中输入：</p>
+<pre><code>$ pod search AFNetworking</code></pre><p>过几秒钟之后，你会在终端中看到关于AFNetworking类库的一些信息。</p>
+<p>这说明，AFNetworking是支持CocoaPods，所以我们可以利用CocoaPods将AFNetworking导入你的项目中。</p>
+<p>首先，我们需要在我们的项目中加入CocoaPods的支持。先利用Xcode创建一个名字CocoaPodsDemo的项目，用于以下的教程。</p>
+<p>你看到这里也许会问，CocoaPods为什么能下载AFNetworking呢，而不是下载其他类库呢？这个问题的答案是，有个文件来控制CocoaPods该下载什么。这个文件就叫做“Podfile”（注意，一定得是这个文件名，而且没有后缀）。你创建一个Podfile文件，然后在里面添加你需要下载的类库，也就是告诉CocoaPods，“某某和某某和某某某，快到碗里来！”。每个项目只需要一个Podfile文件。</p>
+<p>好吧，废话少说，我们先创建这个神奇的PodFile。在终端中进入（cd命令）你项目所在目录，然后在当前目录下，利用vim创建Podfile，运行：</p>
+<pre><code>$ vim Podfile</code></pre><p>然后在Podfile文件中输入以下文字：</p>
+<pre><code>platform :ios, &apos;7.0&apos;
+pod &quot;AFNetworking&quot;, &quot;~&gt; 2.0&quot;</code></pre><p>注意，这段文字不是凭空生成的，可以在AFNetworking的github页面找到。这两句文字的意思是，当前AFNetworking支持的iOS最高版本是iOS 7.0, 要下载的AFNetworking版本是2.0。</p>
+<p>然后保存退出。vim环境下，保存退出命令是：</p>
+<p>:wq<br>这时候，你会发现你的项目目录中，出现一个名字为Podfile的文件，而且文件内容就是你刚刚输入的内容。注意，Podfile文件应该和你的工程文件.xcodeproj在同一个目录下。</p>
+<p>这时候，你就可以利用CocoPods下载AFNetworking类库了。还是在终端中的当前项目目录下，运行以下命令：</p>
+<p>$ pod install<br>因为是在你的项目中导入AFNetworking，这就是为什么这个命令需要你进入你的项目所在目录中运行。</p>
+<p>运行上述命令之后，终端出现以下信息：</p>
+<pre><code>EricmatoMacBook-Pro:CocoaPodsDemo ericwang$ pod install
+Analyzing dependencies
+Downloading dependencies
+Installing AFNetworking (2.0.2)
+Generating Pods project
+Integrating client project
+
+[!] From now on use `CocoaPodsDemo.xcworkspace`.</code></pre><p>注意最后一句话，意思是：以后打开项目就用 CocoaPodsDemo.xcworkspace 打开，而不是之前的.xcodeproj文件。</p>
+<p>你也许会郁闷，为什么会出现.xcodeproj文件呢。这正是你刚刚运行$ pod install命令产生的新文件。除了这个文件，你会发现还多了另外一个文件“Podfile.lock”和一个文件夹“Pods”。 点击 CocoaPodsDemo.xcworkspace 打开之后工程之后，你会惊喜地发现，AFNetwoking已经成功导入项目了。<br>现在，你就可以开始使用AFNetworking.h啦。可以稍微测试一下，在你的项目任意代码文件中输入：</p>
+<pre><code>#import &quot;AFNetworking.h&quot;</code></pre><p>然后编译，看看是否出错。</p>
+<p>至此，CocoPods的第一个应用场景讲述完毕。过程总结一下就是：</p>
+<p>先在项目中创建Podfile，Podfile的内容是你想导入的类库。一般类库的原作者会告诉你导入该类库应该如何写Podfile；<br>运行命令：`$ pod install.</p>
+<h2 id="场景2：如何正确编译运行一个包含CocoPods类库的项目"><a href="#场景2：如何正确编译运行一个包含CocoPods类库的项目" class="headerlink" title="场景2：如何正确编译运行一个包含CocoPods类库的项目"></a>场景2：如何正确编译运行一个包含CocoPods类库的项目</h2><p>你也许曾经遇到过（特别是新手iOS开发者）这种情况，好不容易在GitHub上找到一份代码符合自己想需求，兴冲冲下载下来，一编译，傻眼了，发现有各种各样错误。一看，原来是缺失了各种其他第三方类库。这时候莫慌，你再仔细一看，会发现你下载的代码包含了Podfile。没错，这意味着你可以用CocoaPods很方便下载所需要的类库。</p>
+<p>下面，以代码 UAAppReviewManager 为例来说明如何正确编译运行一个包含CocoPods类库的项目。</p>
+<p>UAAppReviewManager是一个能够让你方便地将提醒用户评分的功能加入你的应用中。当你去UAAppReviewManager的GitHub地址下载这份代码之后，打开Example工程（UAAppReviewManagerExample），编译，你会发现Xcode报告一大堆错误，基本都是说你编译的这份代码找不到某某头文件，这就意味着你要成功编译UAAppReviewManager的Example代码，必须先导入一些第三方类库。同时你会发现在UAAppReviewManagerExample文件夹下面有三个跟CocosPods相关的文件（文件夹）：Podfile，Podfile.lock和Pods，这时候，打开终端，进入UAAppReviewManagerExample所在的目录，也就是和Podfile在同一目录下，和场景1一样，输入以下命令（由于已经有Podfile，所以不需要再创建Podfile）：</p>
+<pre><code>$ pod update</code></pre><p>过几秒（也许需要十几秒，取决于你的网络状况）之后，终端出现：</p>
+<pre><code>Analyzing dependencies
+Fetching podspec for `UAAppReviewManager` from `../`
+Downloading dependencies
+Installing UAAppReviewManager (0.1.6)
+Generating Pods project
+Integrating client project
+
+[!] From now on use `UAAppReviewManagerExample.xcworkspace`.</code></pre><p>这时候，再回到UAAppReviewManagerExample文件夹看一看，会看到多了一个文件UAAppReviewManagerExample.xcworkspace：</p>
+<p>根据终端的信息提示，你以后就需用新产生的UAAppReviewManagerExample.xcworkspace来运行这个Example代码了。</p>
+<p>打开UAAppReviewManagerExample.xcworkspace，编译运行，成功！</p>
+<p>注意，这里有个小问题，如果刚刚你不是输入$ pod update，而是输入$ pod install，会发现类库导入不成功，并且终端出现下面提示：</p>
+<pre><code>[!] Required version (UAAppReviewManager (from `../`)) not found for `UAAppReviewManager`.
+Available versions: 0.1.6</code></pre><p>这里的意思大概是Podfile文件过期，类库有升级，但是Podfile没有更改。$ pod install只会按照Podfile的要求来请求类库，如果类库版本号有变化，那么将获取失败。但是 $ pod update会更新所有的类库，获取最新版本的类库。而且你会发现，如果用了 $ pod update，再用 $ pod install 就成功了。</p>
+<p>那你也许会问，什么时候用 $ pod install，什么时候用 $ pod update 呢，我又不知道类库有没有新版本。好吧，那你每次直接用 $ pod update 算了。或者先用 $ pod install，如果不行，再用 $ pod update。</p>
+<h2 id="场景3：使用CocoaPods开发并打包静态库"><a href="#场景3：使用CocoaPods开发并打包静态库" class="headerlink" title="场景3：使用CocoaPods开发并打包静态库"></a>场景3：使用CocoaPods开发并打包静态库</h2><p>通常我们用pod来管理第三方开源类库，但我们也极有可能会开发一个用pod管理依赖关系的静态类库给其他人使用，而又不愿意公开源代码，比如一些SDK，那么就需要打包成.a文件。本文将以一个依赖于ASIHTTPRequest的静态类库，来演示如何创建使用了CocoaPods的静态类库以及打包的过程。</p>
+<h3 id="开发静态库（Static-Library）"><a href="#开发静态库（Static-Library）" class="headerlink" title="开发静态库（Static Library）"></a>开发静态库（Static Library）</h3><p>创建静态库，有2种方法。</p>
+<h4 id="手动创建-deprecated"><a href="#手动创建-deprecated" class="headerlink" title="手动创建(deprecated)"></a>手动创建(deprecated)</h4><p>过程比较繁琐，纯体力活不推荐，大体步骤说下</p>
+<ol>
+<li>在Xcode中创建一个Cocoa Touch Static Library；</li>
+<li>创建Podfile文件；</li>
+<li>执行pod install完成整个项目的搭建；<br>如果需要demo，手动创建示例程序，使用pod添加对私有静态库的依赖，重复执行pod install完成示例项目的搭建。</li>
+</ol>
+<h4 id="基于pod自动创建"><a href="#基于pod自动创建" class="headerlink" title="基于pod自动创建"></a>基于pod自动创建</h4><p>只需要输入pod的lib命令即可完成初始项目的搭建，下面详细说明具体步骤，以WaterDropView作为项目名演示。</p>
+<h5 id="1-执行命令pod-lib-create-WaterDropView。在此期间需要确认下面4个问题。"><a href="#1-执行命令pod-lib-create-WaterDropView。在此期间需要确认下面4个问题。" class="headerlink" title="1.执行命令pod lib create WaterDropView。在此期间需要确认下面4个问题。"></a>1.执行命令pod lib create WaterDropView。在此期间需要确认下面4个问题。</h5><pre><code>What language do you want to use?? [ ObjC / Swift ]
+&gt; Objc
+
+Would you like to include a demo application with your library? [ Yes / No ]
+&gt; Yes
+
+Which testing frameworks will you use? [ Specta / Kiwi / None ]
+&gt; None
+
+Would you like to do view based testing? [ Yes / No ]
+&gt; No 
+
+What is your class prefix?
+&gt; ZM
+
+Running pod install on your new library.
+
+Analyzing dependencies
+
+CocoaPods 0.39.0.beta.4 is available.
+To update use: `gem install cocoapods --pre`
+[!] This is a test version we&apos;d love you to try.
+
+For more information see http://blog.cocoapods.org
+and the CHANGELOG for this version http://git.io/BaH8pQ.
+
+Fetching podspec for `WaterDropView` from `../`
+Downloading dependencies
+Installing WaterDropView (0.1.0)
+Generating Pods project
+Integrating client project
+
+[!] Please close any current Xcode sessions and use `WaterDropView.xcworkspace` for this project from now on.
+
+Ace! you&apos;re ready to go!
+We will start you off by opening your project in Xcode
+open &apos;WaterDropView/Example/WaterDropView.xcworkspace&apos;
+
+To learn more about the template see `https://github.com/CocoaPods/pod-template.git`.
+To learn more about creating a new pod, see `http://guides.cocoapods.org/making/making-a-cocoapod`.</code></pre><p>   第一个问题询问是否提供一个demo项目，通常选择Yes，其他的可以根据需要选择。命令执行完后，就会创建好一个通过cocoapods管理依赖关系的基本类库框架。</p>
+<h5 id="2-打开WaterDropView-podspec文件，修改类库配置信息，结果像这样。"><a href="#2-打开WaterDropView-podspec文件，修改类库配置信息，结果像这样。" class="headerlink" title="2.打开WaterDropView.podspec文件，修改类库配置信息，结果像这样。"></a>2.打开WaterDropView.podspec文件，修改类库配置信息，结果像这样。</h5><pre><code>#
+# Be sure to run `pod lib lint WaterDropView.podspec&apos; to ensure this is a
+# valid spec before submitting.
+#
+# Any lines starting with a # are optional, but their use is encouraged
+# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
+#
+Pod::Spec.new do |s|
+  s.name             = &quot;WaterDropView&quot;
+  s.version          = &quot;0.1.0&quot;
+  s.summary          = &quot;A short description of WaterDropView.&quot;
+
+# This description is used to generate tags and improve search results.
+#   * Think: What does it do? Why did you write it? What is the focus?
+#   * Try to keep it short, snappy and to the point.
+#   * Write the description between the DESC delimiters below.
+#   * Finally, don&apos;t worry about the indent, CocoaPods strips it!  
+  s.description      = &lt;&lt;-DESC
+                   DESC
+
+  s.homepage         = &quot;https://github.com/qcc107/WaterDropView&quot;
+  # s.screenshots     = &quot;www.example.com/screenshots_1&quot;, &quot;www.example.com/screenshots_2&quot;
+  s.license          = &apos;MIT&apos;
+  s.author           = { &quot;qcc107&quot; =&gt; &quot;464760435@qq.com&quot; }
+  s.source           = { :git =&gt; &quot;https://github.com/qcc107/WaterDropView.git&quot;, :tag =&gt; s.version.to_s }
+  # s.social_media_url = &apos;https://twitter.com/&lt;TWITTER_USERNAME&gt;&apos;
+
+  s.platform     = :ios, &apos;7.0&apos;
+  s.requires_arc = true
+
+  s.source_files = &apos;Pod/Classes/**/*&apos;
+  s.resource_bundles = {
+  &apos;WaterDropView&apos; =&gt; [&apos;Pod/Assets/*.png&apos;]
+  }
+
+  # s.public_header_files = &apos;Pod/Classes/**/*.h&apos;
+  # s.frameworks = &apos;UIKit&apos;, &apos;MapKit&apos;
+  # s.dependency &apos;AFNetworking&apos;, &apos;~&gt; 2.3&apos;
+end</code></pre><p>按照默认配置，类库的源文件将位于Pod/Classes文件夹下，资源文件位于Pod/Assets文件夹下，可以修改s.source_files和s.resource_bundles来更换存放目录。s.public_header_files用来指定头文件的搜索位置。<br>s.frameworks和s.libraries指定依赖的SDK中的framework和类库，需要注意，依赖项不仅要包含你自己类库的依赖，还要包括所有第三方类库的依赖，只有这样当你的类库打包成.a或.framework时才能让其他项目正常使用。</p>
+<h5 id="3-进入Example文件夹，执行pod-install，让demo项目安装依赖项并更新配置。"><a href="#3-进入Example文件夹，执行pod-install，让demo项目安装依赖项并更新配置。" class="headerlink" title="3.进入Example文件夹，执行pod install，让demo项目安装依赖项并更新配置。"></a>3.进入Example文件夹，执行pod install，让demo项目安装依赖项并更新配置。</h5><pre><code>$pod install
+
+Analyzing dependencies
+
+CocoaPods 0.39.0.beta.4 is available.
+To update use: `gem install cocoapods --pre`
+[!] This is a test version we&apos;d love you to try.
+
+For more information see http://blog.cocoapods.org
+and the CHANGELOG for this version http://git.io/BaH8pQ.
+
+Fetching podspec for `WaterDropView` from `../`
+Downloading dependencies
+Using WaterDropView (0.1.0)
+Generating Pods project
+Integrating client project</code></pre><h5 id="4-添加代码。"><a href="#4-添加代码。" class="headerlink" title="4.添加代码。"></a>4.添加代码。</h5><p>添加ZMWaterDropView类，注意文件存放的位置在Pod/Classes目录下，跟podspec配置要一致。<br>运行Pod install，让demo程序加载新建的类。也许你已经发现了，只要新增加类/资源文件或依赖的三方库都需要重新运行Pod install来应用更新。<br>编写Example代码。</p>
+<h5 id="提交本地代码库"><a href="#提交本地代码库" class="headerlink" title="提交本地代码库"></a>提交本地代码库</h5><p>1.修改s.source。根据你的实际路径修改。</p>
+<p>s.source = { :git =&gt; “/Users/name/workspace/ZMWaterDropView”, :tag =&gt; ‘0.1.0’ }<br>2.提交源码，并打tag。</p>
+<p>git add .<br>git commit -a -m ‘v0.1.0’<br>git tag -a 0.1.0 -m ‘v0.1.0’<br>验证类库</p>
+<p>开发完成静态类库之后，需要运行pod lib lint验证一下类库是否符合pod的要求。可以通过添加–only-errors忽略一些警告。</p>
+<p>pod lib lint ZMWaterDropView.podspec –only-errors –verbose<br>…<br>ZMWaterDropView passed validation.<br>打包类库</p>
+<p>需要使用一个cocoapods的插件cocoapods-packager来完成类库的打包。当然也可以手动编译打包，但是过程会相当繁琐。</p>
+<p>安装打包插件<br>终端执行以下命令</p>
+<p>sudo gem install cocoapods-packager<br>打包<br>命令很简单，执行</p>
+<p>pod package ZMWaterDropView.podspec –library –force<br>其中–library指定打包成.a文件，如果不带上将会打包成.framework文件。–force是指强制覆盖。需要特别强调的是，该插件通过对引用的三方库进行重命名很好的解决了类库命名冲突的问题。</p>
+<hr>
+<p>本文参考 <a href="http://code4app.com/article/cocoapods-install-usage" title="code4app" target="_blank" rel="noopener">code4app</a> 和 <a href="http://www.cnblogs.com/brycezhang/archive/2014/11/23/4117180.html" title="Bryce Zhang" target="_blank" rel="noopener">Bryce Zhang</a>。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/15/阻碍我们成功的八种行为/" rel="next" title="阻碍我们成功的八种行为">
+                <i class="fa fa-chevron-left"></i> 阻碍我们成功的八种行为
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/23/WWDC-2015-AUTO-LAYOUT在iOS-9上的改进/" rel="prev" title="WWDC 2015: AUTO LAYOUT在iOS 9上的改进">
+                WWDC 2015: AUTO LAYOUT在iOS 9上的改进 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://f.cl.ly/items/0e2Z2Y1r0s2h1d3Z2Q0u/Image%202016-05-20%20at%205.18.05%20PM.png" alt="翻盖的乌龟">
+          <p class="site-author-name" itemprop="name">翻盖的乌龟</p>
+          <p class="site-description motion-element" itemprop="description">沙滩一躺三年半，大浪来时我翻身。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CocoaPods是什么？"><span class="nav-number">1.</span> <span class="nav-text">CocoaPods是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载和安装"><span class="nav-number">2.</span> <span class="nav-text">下载和安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#场景1：利用CocoaPods，在项目中导入AFNetworking类库"><span class="nav-number">4.</span> <span class="nav-text">场景1：利用CocoaPods，在项目中导入AFNetworking类库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景2：如何正确编译运行一个包含CocoPods类库的项目"><span class="nav-number">4.1.</span> <span class="nav-text">场景2：如何正确编译运行一个包含CocoPods类库的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景3：使用CocoaPods开发并打包静态库"><span class="nav-number">4.2.</span> <span class="nav-text">场景3：使用CocoaPods开发并打包静态库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发静态库（Static-Library）"><span class="nav-number">4.2.1.</span> <span class="nav-text">开发静态库（Static Library）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#手动创建-deprecated"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">手动创建(deprecated)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于pod自动创建"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">基于pod自动创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-执行命令pod-lib-create-WaterDropView。在此期间需要确认下面4个问题。"><span class="nav-number">4.2.1.2.1.</span> <span class="nav-text">1.执行命令pod lib create WaterDropView。在此期间需要确认下面4个问题。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-打开WaterDropView-podspec文件，修改类库配置信息，结果像这样。"><span class="nav-number">4.2.1.2.2.</span> <span class="nav-text">2.打开WaterDropView.podspec文件，修改类库配置信息，结果像这样。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-进入Example文件夹，执行pod-install，让demo项目安装依赖项并更新配置。"><span class="nav-number">4.2.1.2.3.</span> <span class="nav-text">3.进入Example文件夹，执行pod install，让demo项目安装依赖项并更新配置。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-添加代码。"><span class="nav-number">4.2.1.2.4.</span> <span class="nav-text">4.添加代码。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提交本地代码库"><span class="nav-number">4.2.1.2.5.</span> <span class="nav-text">提交本地代码库</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">翻盖的乌龟</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

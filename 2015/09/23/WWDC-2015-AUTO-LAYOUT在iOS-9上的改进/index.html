@@ -1,0 +1,823 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="自从AUTO LAYOUT在iOS 6中引入以来,我一直深深的为之着迷，特别是通过直接在代码中使用它,而不是使用故事板。但它在代码中使用非常冗长。我写了一些类,使代码更加紧凑。但我不满意我的解决方案。所以我计划在WWDC期间去一个实验室,咨询一个苹果AUTO LAYOUT工程师对这个问题的看法。但是事实证明我不需要!苹果解决了大部分我在AUTO LAYOUT中遇到的问题在iOS 9的API中!在这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WWDC 2015: AUTO LAYOUT在iOS 9上的改进">
+<meta property="og:url" content="http://yoursite.com/2015/09/23/WWDC-2015-AUTO-LAYOUT在iOS-9上的改进/index.html">
+<meta property="og:site_name" content="南风">
+<meta property="og:description" content="自从AUTO LAYOUT在iOS 6中引入以来,我一直深深的为之着迷，特别是通过直接在代码中使用它,而不是使用故事板。但它在代码中使用非常冗长。我写了一些类,使代码更加紧凑。但我不满意我的解决方案。所以我计划在WWDC期间去一个实验室,咨询一个苹果AUTO LAYOUT工程师对这个问题的看法。但是事实证明我不需要!苹果解决了大部分我在AUTO LAYOUT中遇到的问题在iOS 9的API中!在这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.trifork.com/wp-content/uploads/2015/06/Safari-developer.apple_.com-Screen-Shot-21-June-2015-at-1626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/tomvanzummeren/TZStackView/master/assets/TZStackView-hide-animation.gif">
+<meta property="og:image" content="http://blog.trifork.com/wp-content/uploads/2015/06/spacing-example.png">
+<meta property="og:image" content="http://blog.trifork.com/wp-content/uploads/2015/06/Safari-developer.apple_.com-Screen-Shot-21-June-2015-at-2102-169x300.png">
+<meta property="og:updated_time" content="2019-07-30T03:10:33.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WWDC 2015: AUTO LAYOUT在iOS 9上的改进">
+<meta name="twitter:description" content="自从AUTO LAYOUT在iOS 6中引入以来,我一直深深的为之着迷，特别是通过直接在代码中使用它,而不是使用故事板。但它在代码中使用非常冗长。我写了一些类,使代码更加紧凑。但我不满意我的解决方案。所以我计划在WWDC期间去一个实验室,咨询一个苹果AUTO LAYOUT工程师对这个问题的看法。但是事实证明我不需要!苹果解决了大部分我在AUTO LAYOUT中遇到的问题在iOS 9的API中!在这">
+<meta name="twitter:image" content="http://blog.trifork.com/wp-content/uploads/2015/06/Safari-developer.apple_.com-Screen-Shot-21-June-2015-at-1626.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> WWDC 2015: AUTO LAYOUT在iOS 9上的改进 | 南风 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">南风</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                WWDC 2015: AUTO LAYOUT在iOS 9上的改进
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-23T16:44:55+08:00" content="2015-09-23">
+              2015-09-23
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IT随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">IT随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>自从AUTO LAYOUT在iOS 6中引入以来,我一直深深的为之着迷，特别是通过直接在代码中使用它,而不是使用故事板。但它在代码中使用非常冗长。我写了一些类,使代码更加紧凑。但我不满意我的解决方案。所以我计划在WWDC期间去一个实验室,咨询一个苹果AUTO LAYOUT工程师对这个问题的看法。但是事实证明我不需要!苹果解决了大部分我在AUTO LAYOUT中遇到的问题在iOS 9的API中!在这篇文章中我想突出的新API更容易使用自动布局在代码和故事板! 在这片文章中，我将分别用代码和Storyboard展示用新的API使用AUTO LAYOUT是如何简单易用。</p>
+<h2 id="什么是AUTO-LAYOUT"><a href="#什么是AUTO-LAYOUT" class="headerlink" title="什么是AUTO LAYOUT"></a>什么是AUTO LAYOUT</h2><p>对于那些AUTO LAYOUT的新手，我想快速的过一下这东西到底是什么。AUTO LAYOUT是一个机制,用它可以很容易地支持不同的屏幕尺寸。<br>AUTO LAYOUT的核心是极其简单的。它使用“约束”来确定视图在屏幕上的x,y,宽度和高度属性。约束是描述一个视图的位置和大小的规则。一个视图需要多个约束来正确的定位和限制大小。约束和所代表它的类youtConstraint仅仅是遵循这个公式:</p>
+<pre><code>view1.attribute1 = view2.attribute2 x A + B</code></pre><p>这是AUTO LAYOUT的核心,所有的约束都遵循这种模式。使用一系列遵循这种模式的约束你可以布局一切，它将在巧妙的缩放来适应不同的屏幕尺寸。<br>例如:</p>
+<pre><code>label.Top = container.Top x 1 + 20(列出了一个标签的y值低于容器的顶部边缘视图20像素点)
+label.Width = container.Width x 0.5 + 0 (一个标签的宽度设置为一半的容器的宽度)</code></pre><h2 id="为什么使用AUTO-LAYOUT？"><a href="#为什么使用AUTO-LAYOUT？" class="headerlink" title="为什么使用AUTO LAYOUT？"></a>为什么使用AUTO LAYOUT？</h2><p>在很长的一段时间内,iOS应用程序并没有在关心屏幕大小适配。iPhone 3g,4和4s基本上都是分辨率为320×480的逻辑点。随着视网膜屏幕的引入并没有改变,因为作为一名开发人员你仍然可以假装屏幕是320×480,而系统会为你转换为640×960。当然你也有iPad,但你不必为之做更多的工作,因为你将为iPad设计一个特定的用户界面,这将是特定的屏幕分辨率1024×768。</p>
+<h2 id="支持不同的分辨率"><a href="#支持不同的分辨率" class="headerlink" title="支持不同的分辨率"></a>支持不同的分辨率</h2><p>随着iPhone 4s到来的iOS 6.0,给我们介绍了自动布局。我们不觉得有必要使用它,但在它的目的很明显:使它容易支持iPhone更大的屏幕!在那一刻唯一的真正好处来自屏幕的旋转，从竖屏到横屏,这实际上也是一个分辨率的变化。</p>
+<h2 id="iPad的多任务模式"><a href="#iPad的多任务模式" class="headerlink" title="iPad的多任务模式"></a>iPad的多任务模式</h2><p>随着iOS 9的到来，AUTO LAYOUT变得如此重要的一个原因是：在iPad上支持多任务！现在你可以观看并排的两个应用程序在同一时间，这意味着应用程序要能够缩放自己的尺寸为四分之一屏幕或者半个屏幕。用户决定显示每个应用程序的大小。使用AUTO LAYOUT可以很容易适应这些变化。</p>
+<h2 id="STACKING-VIEWS"><a href="#STACKING-VIEWS" class="headerlink" title="STACKING VIEWS"></a>STACKING VIEWS</h2><p>Before iOS 9, we had to add many different constraints to all different views within a single screen to position them correctly and let them handle screen size changes accordingly. This was easy, but a little hard to manage. There were two ways to do it:</p>
+<p>在iOS 9之前，我们不得不在一个屏幕上对所有子视图添加许多不同的约束来使它们适应屏幕大小的变化。这是一件简单的事情，但是难于管理。有两种方式可以实现：</p>
+<ul>
+<li>使用 storyboard</li>
+<li>使用代码</li>
+</ul>
+<h3 id="Storyboard"><a href="#Storyboard" class="headerlink" title="Storyboard"></a>Storyboard</h3><p><img src="http://blog.trifork.com/wp-content/uploads/2015/06/Safari-developer.apple_.com-Screen-Shot-21-June-2015-at-1626.png" alt="storyboard"></p>
+<p>使用故事板可以单击并拖动来创建约束，你最终将得到的大量的蓝线,这代表了约束。现在你想要插入另一个标签,在“车库乐队”和“苹果”之间。你该怎么做?你删除一些约束连接现有的标签,插入你的新标签和你现有的两个标签连接到你的新标签。这足以说明约束维护的复杂性。</p>
+<h3 id="用代码实现约束"><a href="#用代码实现约束" class="headerlink" title="用代码实现约束"></a>用代码实现约束</h3><p>用代码实现的话也存在同样的问题，这里没有蓝线，取而代之的是：</p>
+<pre><code>view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+&quot;V:|[titleLabel]-padding-[descriptionLabel]-padding-[imageView]&quot;, 
+options: nil,
+ metrics: [&quot;padding&quot;: 10],
+  views: [
+          &quot;titleLabel&quot;: titleLabel,
+          &quot;descriptionLabel&quot;: descriptionLabel,
+          &quot;imageView&quot;: imageView])
+)
+view.addConstraint(NSLayoutConstraint(
+   item: titleLabel,
+   attribute: .Leading,
+   relatedBy: .Equal,
+   toItem: self,
+   attribute: .Leading,
+   multiplier: 1,
+   constant: 10)
+)</code></pre><p>这仍然不是最佳的管理方案。</p>
+<h3 id="UIStackView"><a href="#UIStackView" class="headerlink" title="UIStackView"></a>UIStackView</h3><p>随着iOS 9的一声炮响，UIStackView应运而生！你可以把一组子视图放入UIStackView，并将它们垂直或水平布局，这不费吹灰之力。不再需要为每个子视图添加约束。这一切UIStackView都已经为你做好。</p>
+<p>在上边儿的例子中你只需要标示那里需要使用stack view。你只需找出子视图需要堆积的位置。几乎所有你能想到的UI都可以都可以通过嵌套stack views的方式建立视图。苹果强烈建议我们为每一个布局使用stack views，只有那些用stack views实在无法实现的才需要用单独的约束。</p>
+<p>使用stack view的示例：</p>
+<pre><code>let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, imageView])
+stackView.distribution = .Fill
+stackView.alignment = .Leading
+stackView.axis = .Vertical
+stackView.spacing = 10</code></pre><p>就是这样!在titleLabel和descriptionLabel之间添加一个label就像将其添加到数组的“arrangedSubviews”一样简单!<br>一个额外的好处:你可以很容易地通过动画动画隐藏/显示视图通过修改UIView的隐藏属性,而该属性通常不能做成动画。</p>
+<p><img src="https://raw.githubusercontent.com/tomvanzummeren/TZStackView/master/assets/TZStackView-hide-animation.gif" alt="stackview"></p>
+<p>所有需要的是修改动画的隐藏属性,如下:</p>
+<pre><code>UIView.animateWithDuration(0.5, animations: {
+   someSubview.hidden = true
+})</code></pre><h3 id="我自己实现的UIStackView"><a href="#我自己实现的UIStackView" class="headerlink" title="我自己实现的UIStackView"></a>我自己实现的UIStackView</h3><p>多么完美的UIStackView，但是它只能用在iOS 9及以上版本。但是我想用在iOS 7和iOS 8之中。UIStackView的接口看起来足够简单：用一个视图数组初始化它，配置它的一些属性如‘distribution’, ‘alignment’ 和 ‘axis’。这就是它！我想，这有多难？然而事实证明它比我想象的要难得多，但是我做到了！我完全重写了整个过程咋iOS 7和iOS 8之下。我为之自豪：TZStackView！<br><a href="https://github.com/tomvanzummeren/TZStackView" target="_blank" rel="noopener">TZStackView git地址</a></p>
+<p>我将它设计为和UIStackView一模一样的接口，以便于将来某一天被替代。使用TZStackView的实现上面的例子：</p>
+<pre><code>let stackView = TZStackView(arrangedSubviews: [titleLabel, descriptionLabel, imageView])
+stackView.distribution = .Fill
+stackView.alignment = .Leading
+stackView.axis = .Vertical
+stackView.spacing = 10</code></pre><h2 id="LAYOUT-GUIDES"><a href="#LAYOUT-GUIDES" class="headerlink" title="LAYOUT GUIDES"></a>LAYOUT GUIDES</h2><p>另一个新的iOS 9Auto Layout的概念是“layout guide”。是“constrain negative space”。什么意思?看个例子:<br>你有三个固定宽度的视图用来填补可用空间,你想让这些矩形之间的间距相等。</p>
+<p><img src="http://blog.trifork.com/wp-content/uploads/2015/06/spacing-example.png" alt="layout guides"></p>
+<p>The empty space in between the boxes is called ‘negative space’ and you want to express using constraints that you want those spaces to be equal to one another. Long story short: you can’t express that directly because constraints can only be applied on views, not on margins between those views. Before iOS 9 what you could do is add 4 transparent subviews in between those boxes, also known as ‘spacer views’ and put constraints on those. That works like a charm!</p>
+<p>The problem with this approach is that it’s kind of a hack. You pollute your view hierarchy with things that are just there to position other views with no purpose of their own. This also impacts performance.</p>
+<p>This brings me to layout guides, represented by the UILayoutGuide class. You can add them to your view like this:</p>
+<p>视图之间的空的空间被称为“negative space”，你的目的是使用约束来使这些空间相等。长话短说:你不能直接表达,因为约束只能应用于视图,而不是那些视图之间的间距。在iOS 9之前你可以做的是添加4个透明子视图在这些视图之间,这些也被称为“间隔视图”，然后给这些视图添加约束。<br>这种方法的问题在于它是一种黑客技术。这污染了你的视图层次，它们仅仅是为了固定其他视图而没有自己的意义。这也影响了性能。<br>为此，引入了“layout guide”,由UILayoutGuide类来实现。你可以将它们添加到你的视图，像这样：</p>
+<pre><code>let layoutGuide = UILayoutGuide()
+view.addLayoutGuide(layoutGuide)</code></pre><p>Next, you can use the layout guide in your constraints, just as you would do using ‘spacer views’.</p>
+<p>接下来，你可以在你的约束中使用layout guide，就像使用‘spacer views’。</p>
+<pre><code>view.addConstraint(NSLayoutConstraint(
+         item: layoutGuide1,
+    attribute: .Width,
+    relatedBy: .Equal,
+       toItem: layoutGuide2,
+    attribute: .Width,
+   multiplier: 1,
+     constant: 0)
+ )</code></pre><p>这样做的好处是,我们不污染我们的视图层次和替换‘spacer views’用更轻量级的‘layout guides’。它们不能回应触摸或直观地呈现在屏幕上。它们只是在那里给其他视图提供约束。</p>
+<h2 id="CONSTRAINTS-FLUENT-INTERFACE"><a href="#CONSTRAINTS-FLUENT-INTERFACE" class="headerlink" title="CONSTRAINTS FLUENT INTERFACE"></a>CONSTRAINTS FLUENT INTERFACE</h2><p>这也是一个功能在不久的将来会普遍使用的功能。它在WWDC的两节演讲中被提到。它简化了你创建单独约束的过程。在此重复我之前给出的一个例子:</p>
+<pre><code>view.addConstraint(NSLayoutConstraint(
+      item: titleLabel,
+ attribute: .Leading,
+ relatedBy: .Equal,
+    toItem: self,
+ attribute: .Leading,
+multiplier: 1,
+  constant: 10)
+)</code></pre><p>现在你可以用下边儿的代码来达到同样的效果：</p>
+<pre><code>view.leadingAnchor.constraintEqualToAnchor(titleLabel.leadingAnchor, constant: 10)    </code></pre><p>当我第一次看到这种新的写约束的方式时我非常激动。易读、易记忆更易于管理。这和UIStackView配合使用将大大简化编写自动布局代码的数量。</p>
+<h2 id="RIGHT-TO-LEFT-LANGUAGE-SUPPORT"><a href="#RIGHT-TO-LEFT-LANGUAGE-SUPPORT" class="headerlink" title="RIGHT-TO-LEFT LANGUAGE SUPPORT"></a>RIGHT-TO-LEFT LANGUAGE SUPPORT</h2><p>从右到左的语言支持已经在这儿了！我不知道这是否令人着迷,但显然使用从右到左的语言,例如阿拉伯语的人更期望用户界面右对齐。</p>
+<p><img src="http://blog.trifork.com/wp-content/uploads/2015/06/Safari-developer.apple_.com-Screen-Shot-21-June-2015-at-2102-169x300.png" alt="RIGHT-TO-LEFT"></p>
+<p>它的实现是很简单的。他们仅仅使用了“Leading”和“Trailing”的布局属性抽象“Left”和“Right”。在iOS 9之前“Leading”和“Trailing”的布局属性已经存在,但他们相当于“Left”和“Right”。事实上,苹果公司推荐使用“Leading”和“Trailing”来替代“Left”和“Right”。这样你的应用程序支持从右到左的语言只是分分钟的事情！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Auto Layout在iOS 9上做了很多该进，总结下:</p>
+<ul>
+<li>stack view</li>
+<li>layout guides</li>
+<li>layout anchors (fluent interface)</li>
+<li>right-to-left language support</li>
+</ul>
+<p>推荐观看<a href="https://developer.apple.com/videos/wwdc/2015/?id=218" target="_blank" rel="noopener">Mysteries of Auto Layout – part 1</a>. 来学习怎样调试Auto Layout问题, 观看<a href="https://developer.apple.com/videos/wwdc/2015/?id=219" target="_blank" rel="noopener">Mysteries of Auto Layout – part 2</a>来了解更多细节. 想了解right-to-left language support, 阅读<a href="https://developer.apple.com/videos/wwdc/2015/?id=222" target="_blank" rel="noopener">New UIKit Support for International User Interfaces</a>.</p>
+<hr>
+<p>本文翻译自<a href="http://blog.trifork.com/2015/06/22/wwdc-2015-auto-layout-improvements/" target="_blank" rel="noopener">WWDC 2015: AUTO LAYOUT IMPROVEMENTS</a>，转载请注明出处。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/16/CocoaPods安装和使用/" rel="next" title="CocoaPods安装和使用">
+                <i class="fa fa-chevron-left"></i> CocoaPods安装和使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/24/Vim命令合集/" rel="prev" title="Vim命令合集">
+                Vim命令合集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://f.cl.ly/items/0e2Z2Y1r0s2h1d3Z2Q0u/Image%202016-05-20%20at%205.18.05%20PM.png" alt="翻盖的乌龟">
+          <p class="site-author-name" itemprop="name">翻盖的乌龟</p>
+          <p class="site-description motion-element" itemprop="description">沙滩一躺三年半，大浪来时我翻身。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是AUTO-LAYOUT"><span class="nav-number">1.</span> <span class="nav-text">什么是AUTO LAYOUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用AUTO-LAYOUT？"><span class="nav-number">2.</span> <span class="nav-text">为什么使用AUTO LAYOUT？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持不同的分辨率"><span class="nav-number">3.</span> <span class="nav-text">支持不同的分辨率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iPad的多任务模式"><span class="nav-number">4.</span> <span class="nav-text">iPad的多任务模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STACKING-VIEWS"><span class="nav-number">5.</span> <span class="nav-text">STACKING VIEWS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storyboard"><span class="nav-number">5.1.</span> <span class="nav-text">Storyboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用代码实现约束"><span class="nav-number">5.2.</span> <span class="nav-text">用代码实现约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIStackView"><span class="nav-number">5.3.</span> <span class="nav-text">UIStackView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我自己实现的UIStackView"><span class="nav-number">5.4.</span> <span class="nav-text">我自己实现的UIStackView</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LAYOUT-GUIDES"><span class="nav-number">6.</span> <span class="nav-text">LAYOUT GUIDES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CONSTRAINTS-FLUENT-INTERFACE"><span class="nav-number">7.</span> <span class="nav-text">CONSTRAINTS FLUENT INTERFACE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RIGHT-TO-LEFT-LANGUAGE-SUPPORT"><span class="nav-number">8.</span> <span class="nav-text">RIGHT-TO-LEFT LANGUAGE SUPPORT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">翻盖的乌龟</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
