@@ -267,156 +267,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/18/第一个Scrapy爬虫/" itemprop="url">
-                  第一个Scrapy爬虫(二)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-18T14:34:57+08:00" content="2016-05-18">
-              2016-05-18
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/爬虫系列/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫系列</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><pre><code>scrapy startproject tutorial</code></pre><p>  如果没有报错，则创建成功</p>
-<p>  在Mac下如果报这个错误：</p>
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  Traceback (most recent <span class="keyword">call</span> <span class="keyword">last</span>):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/usr/local/bin/scrapy"</span>, line <span class="number">7</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.cmdline <span class="keyword">import</span> <span class="keyword">execute</span></span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/__init__.py"</span>, line <span class="number">34</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> Spider</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/spiders/__init__.py"</span>, line <span class="number">10</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/http/__init__.py"</span>, line <span class="number">12</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.http.request.rpc <span class="keyword">import</span> XmlRpcRequest</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/http/request/rpc.py"</span>, line <span class="number">7</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> six.moves <span class="keyword">import</span> xmlrpc_client <span class="keyword">as</span> xmlrpclib</span><br><span class="line">ImportError: cannot <span class="keyword">import</span> <span class="keyword">name</span> xmlrpc_client</span><br></pre></td></tr></table></figure>
-
-
-<p>  尝试</p>
-<pre><code>export PYTHONPATH=/Library/Python/2.7/site-packages:$PYTHONPATH</code></pre><p>  或</p>
-<pre><code>echo &quot;export PYTHONPATH=/Library/Python/2.7/site-packages:$PYTHONPATH&quot; &gt;&gt; ~/.bashrc</code></pre><p>  然后重新创建工程</p>
-<p> 该命令将会创建包含下列内容的 tutorial 目录: </p>
- <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tutorial/</span><br><span class="line">   scrapy.cfg</span><br><span class="line">   tutorial/</span><br><span class="line">       __init__.py</span><br><span class="line">       items.py</span><br><span class="line">       pipelines.py</span><br><span class="line">       settings.py</span><br><span class="line">       spiders/</span><br><span class="line">           __init__.py</span><br><span class="line">           ...</span><br></pre></td></tr></table></figure>
-
-
-<p> 这些文件分别是:</p>
-<ul>
-<li>scrapy.cfg: 项目的配置文件</li>
-<li>tutorial/: 该项目的python模块。之后您将在此加入代码。</li>
-<li>tutorial/items.py: 项目中的item文件.</li>
-<li>tutorial/pipelines.py: 项目中的pipelines文件.</li>
-<li>tutorial/settings.py: 项目的设置文件.</li>
-<li>tutorial/spiders/: 放置spider代码的目录.</li>
-</ul>
-<h2 id="创建爬虫"><a href="#创建爬虫" class="headerlink" title="创建爬虫"></a>创建爬虫</h2><p>在tutorial/spiders下创建dmoz_spider.py，代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.spider <span class="keyword">import</span> Spider</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DmozSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line">  name = <span class="string">"dmoz"</span></span><br><span class="line">  allowed_domains = [<span class="string">"dmoz.org"</span>]</span><br><span class="line">  start_urls = [</span><br><span class="line">    <span class="string">"http://www.dmoz.org/Computers/Programming/Languages/Python/Books/"</span>,</span><br><span class="line">    <span class="string">"http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"</span></span><br><span class="line">  ]</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">    filename = response.url.split(<span class="string">"/"</span>)[<span class="number">-2</span>]</span><br><span class="line">    open(filename, <span class="string">'wb'</span>).write(response.body)</span><br></pre></td></tr></table></figure>
-
-<p>上面的class中，参数说明如下：</p>
-<ul>
-<li>name是Scrapy 识别的爬虫名字，一定要唯一。</li>
-<li>allowed_domains 是域名白名单</li>
-<li>start_urls 即种子url （如果没有定义其他Rule的话，也就是只抓取这几页）</li>
-<li>parse()是spider的一个方法。 被调用时，每个初始URL完成下载后生成的 Response 对象将会作为唯一的参数传递给该函数。 该方法负责解析返回的数据(response data)，提取数据(生成item)以及生成需要进一步处理的URL的 Request 对象。</li>
-</ul>
-<h3 id="爬取数据"><a href="#爬取数据" class="headerlink" title="爬取数据"></a>爬取数据</h3><p>切换到tutorial目录，执行：</p>
-<pre><code>scrapy crawl dmoz</code></pre><p>然后，发现目录下多了 Books 和 Resources 2个文件。</p>
-<p>在执行上面的shell命令时，scrapy会创建一个scrapy.http.Request对象，将start_urls传递给它，抓取完毕后，回调parse函数。</p>
-<h3 id="刚才发生了什么？"><a href="#刚才发生了什么？" class="headerlink" title="刚才发生了什么？"></a>刚才发生了什么？</h3><p>Scrapy为Spider的 start_urls 属性中的每个URL创建了 scrapy.Request 对象，并将 parse 方法作为回调函数(callback)赋值给了Request。</p>
-<p>Request对象经过调度，执行生成 scrapy.http.Response 对象并送回给spider parse() 方法。</p>
-<hr>
-<p> 参考<a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/intro/tutorial.html" target="_blank" rel="noopener">Scrapy入门教程</a>。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/05/17/Mac安装Scrapy/" itemprop="url">
                   Mac安装Scrapy(一)
                 </a>
@@ -938,6 +788,138 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/10/自我管理的破窗效应/" itemprop="url">
+                  自我管理的破窗效应
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-10T16:26:54+08:00" content="2016-04-10">
+              2016-04-10
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IT随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">IT随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>在《程序员修炼之道——从小工到专家》这本书里，有这么一段描述：
+
+在市区，有些建筑漂亮而整洁，而另一些却是破败不堪的“废弃船只”。为什么？犯罪和城市衰退领域的研究者发现了一种迷人的触发机制，
+一种能够很快将整洁、完整和有人居住的建筑变为破败的废弃物的机制[WK82]。
+
+破窗户。
+
+一扇破窗户，只要有那么一段时间不修理，就会渐渐给建筑的居民带来一种废弃感——一种职权部门不关心这座建筑的感觉。
+于是又一扇窗户破了。人们开始乱扔垃圾。出现了乱涂乱画。严重的结构损坏开始了。在相对较短的一段时间里，
+建筑就被损毁得超出了业主愿意修理的程度，而废弃感变成了现实。
+
+“破窗户理论”启发了纽约和其他大城市的警察部门，他们对一些轻微的案件严加处理，以防止大案的发生。
+这起了作用：管束破窗户、乱涂乱画和其他轻微违法事件减少了严重罪案的发生。</code></pre><p>不知道你有没有过类似这样的经验：</p>
+<p>比如你坚持每天都跑步，风雨不断。一旦养成习惯，做这件事情感觉就是理所当然的。然后某天你病了，休息了一个星期，然后你会发现，原来不跑步也是可以的，还节省时间，不累。于是你慢慢就开始不跑了，于是跑步锻炼这个好习惯就被你丢了。后果呢？可能身材开始慢慢肥胖变形了，身体也不那么强健了，开始犯一些小毛病了。学习效率也开始下降了，要知道，运动能够提高大脑的活性，学习效率也会得到提高的。所以简单的一个破窗没有及时堵住，最后能导致一连串不良效果的出现。</p>
+<p>又比如你坚持每天都写博客，记录代码片段，或者写点什么东西。一开始也是努力严格要求自己，必须每天都要写。然而总会有些原因让你无法写，比如出差、加班、旅游等等。发现博客断更了几天，于是就开始断更了得更厉害了，变成几周更新一次，几个月更新一次，慢慢博客就荒废了。博客是整理思维，总结所学的一个非常好的习惯。有坚持写博客习惯的人，往往思路清晰，逻辑有条理，长期以往，思维会变得活跃并深邃。所以这个习惯的丢弃，是非常可惜的，个人的成长失去一个有效的总结提升机制。长期的习惯可能都遭不住破窗的侵袭，更何况是三分钟热度的东西。</p>
+<p>又比如你的工作台一开始是很整洁的，因此你心情不错，办事效率也很高（PS：国外一个研究理论，整洁的工作台能够提高你的工作效率）。但是某个时候你放了个杯子，摆了个电话，堆了些文件……慢慢桌面上的东西越来越多，也开始慢慢变乱，你没注意收拾好，于是越来越乱。最后乱得影响你工作的心情，然后办事效率低，工作表现开始变差，然后出现一连串恶性循环，比如因为表现不好得不到领导的赏识了，升迁受阻，个人精神开始颓滞等。仅仅因为一个工作台的破窗，就可能影响到一个人的职业发展。可能有点夸张，但工作优秀的人，桌面基本都是一直保持得很整洁的。</p>
+<p>再举一个最简单的例子。你打算每个月存5000元，一开始也确实将5000元存进银行或者各种地方了。然后你看到某个东西你很喜欢，也不贵，就剁手买买买了。当5000元变成4xxx时，破窗就开始出现了，你会继续被各种消费欲望驱使，最后全花光了。而如果一开始你忍住不剁手的话，也许5000元也许就可以全存下了。一百元不找散的话，是不是可以在钱包里呆得比较久呢？又或者那一百元是崭新的新版土豪金，又是不是会呆得更久呢？破窗这个东西很神奇。</p>
+<p>优秀往往来源于好习惯，而习惯优秀则能走向卓越。偶尔看到一些对学神的采访，问为什么学习能这么厉害。学神无非就说，坚持早读啊，坚持晚上学习到多晚等等。看似简单，但是要你每天都做那可就不简单了。学渣坚持早读晚修，努力学习，也许一年就可以变学民了。再坚持个三年，也许就可以变学霸了。而一直坚持下去，始终不落下这个习惯，也许就能成为学神了。学神诚不欺余也。</p>
+<p>所以好习惯的重要性不言而喻。好习惯是靠坚持养出来的，而注意防范自我管理中的破窗，非常重要。一个小小的懈怠，也许就能毁掉你十年的习惯。严格要求自己，不要让懒惰滋生破窗。</p>
+<p>本文转自<a href="http://www.nowamagic.net/librarys/veda/detail/2816" target="_blank" rel="noopener">自我管理中的破窗效应</a>。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -981,7 +963,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
