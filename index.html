@@ -332,7 +332,9 @@
           
             <h2 id="HLS-简介"><a href="#HLS-简介" class="headerlink" title="HLS 简介"></a>HLS 简介</h2><p>HLS (HTTP Live Streaming)是Apple的动态码率自适应技术。主要用于PC和Apple终端的音视频服务。HLS的优点是性能高、兼容性好，缺点是实时性差。适合使用在点播和实时性要求不高的场景。苹果今年新发布了一个低延迟HLS规范，目前它是作为单独的草案来构建的。苹果新的低延时的HLS草案设计目标是1到2秒的延时。</p>
 <h2 id="常规HLS时延产生的原因"><a href="#常规HLS时延产生的原因" class="headerlink" title="常规HLS时延产生的原因"></a>常规HLS时延产生的原因</h2><p>HLS 被设计为简单的和健壮的。但这种简单性是有代价的，HLS 通常会带来较高的延时。</p>
-<h3 id="切片和发现机制增加了延时"><a href="#切片和发现机制增加了延时" class="headerlink" title="切片和发现机制增加了延时"></a>切片和发现机制增加了延时</h3><p><img src="/.com//page2image1823776.png" alt="img"></p>
+<h3 id="切片和发现机制增加了延时"><a href="#切片和发现机制增加了延时" class="headerlink" title="切片和发现机制增加了延时"></a>切片和发现机制增加了延时</h3><p>1|</p>
+<!-- ![img](Introducing-Low-Latency-HLS/page2image1823776.png) -->
+
 <p>我们从框架开始，采集的数据首先进行编码，然后被放到一个segment里，苹果推荐6秒大小的segment。因为编码是实时的，这意味着在6秒内，CDN上没有任何数据。当segment编码完成，客户端需要知道这个segment完成了，现在的HLS采用轮询机制来获取最新的playlist，轮询会在(6，12)区间内获取到包含第一个切片的playlist。之后，客户端发起一个新的请求去获取真正的segment。这里的每一个请求都需要一个RTT，在移动网络上，这个可能增加数百毫秒的延迟。现在，在最坏情况下，延时已经达到了12秒，如果客户端需要2个以上的Segment才能播放，那延时会更大。</p>
 <h3 id="CDN的缓存机制加长了延时"><a href="#CDN的缓存机制加长了延时" class="headerlink" title="CDN的缓存机制加长了延时"></a>CDN的缓存机制加长了延时</h3><p><img src="/.com//page3image1793312.png" alt="img"></p>
 <p>如上图所示，源站已经前进到第四个segment，但是CDN边缘节点还缓存着上一个版本（只包含3个片段）的playlist，CDN无法知道该播放列表已在源站上更新。这个时候不能直接回源，如果每个端上的请求到达CDN边缘节点时都去找源站要最新版本，源站就可能会被流量冲垮。因此，CDN 必须缓存一段时间，这就是TTL，必须等TTL过期边缘节点才会回源，所以最差情况下又要多等待一个TTL。</p>
