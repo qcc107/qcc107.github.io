@@ -267,6 +267,291 @@
             
               
                 
+                <a class="post-title-link" href="/2015/09/14/一个水滴动画的实现/" itemprop="url">
+                  一个水滴动画的实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-14T11:42:01+08:00" content="2015-09-14">
+              2015-09-14
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IT随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">IT随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。</p>
+<h2 id="波纹的实现"><a href="#波纹的实现" class="headerlink" title="波纹的实现"></a>波纹的实现</h2><p>波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于NSTimer，非常适合这种和屏幕刷新相关的操作。</p>
+<h3 id="加载波形层"><a href="#加载波形层" class="headerlink" title="加载波形层"></a>加载波形层</h3><pre><code>- (void)loadWaveLayers{
+
+if (!_waveLayers) 
+{
+    self.waveLayers = [[NSMutableArray alloc] initWithCapacity:3];
+
+    UIColor *whiteColor = [UIColor whiteColor];
+    UIColor *lightGrayColor = [UIColor colorWithRed:207/255.0f
+                                              green:207/255.0f
+                                               blue:207/255.0f
+                                              alpha:1.0f];
+    UIColor *darkGrayColor = [UIColor colorWithRed:159/255.0f
+                                             green:159/255.0f
+                                              blue:159/255.0f
+                                             alpha:1.0f];
+
+    NSArray *colors = @[darkGrayColor, lightGrayColor, whiteColor];
+
+    for (int i = 0; i &lt; 3; ++i) {
+        CAShapeLayer *waveLayer = [CAShapeLayer layer];
+        waveLayer.fillColor = ((UIColor *)colors[i]).CGColor;
+        [self.layer addSublayer:waveLayer];
+
+        [_waveLayers addObject:waveLayer];
+    }
+}
+}</code></pre><h3 id="设置定时器"><a href="#设置定时器" class="headerlink" title="设置定时器"></a>设置定时器</h3><pre><code>_frameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateVibrations:)];
+_frameTimer.frameInterval = 2;
+[_frameTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];</code></pre><h3 id="更新数值"><a href="#更新数值" class="headerlink" title="更新数值"></a>更新数值</h3><pre><code>- (void)updateVibrations:(CADisplayLink *)displayLink
+{
+if (_increase) {
+    _variable += 1 / 30.0f;
+}else{
+    _variable -= 1 / 30.0f;
+}
+
+if (_variable &lt;= 1) {
+    _increase = YES;
+}
+
+if (_variable &gt;= 1.6) {
+    _increase = NO;
+}
+
+_offsetX += _waveSpeed;
+
+[self drawWaveWithLayer:_waveLayers[0] amplitude:_variable * 3 waveCycle:1.5* M_PI / _waveWidth offsetY:20.0f];    // dark
+[self drawWaveWithLayer:_waveLayers[1] amplitude:_variable * 5 waveCycle:1.1 * M_PI / _waveWidth offsetY:22.0f];   // light
+[self drawWaveWithLayer:_waveLayers[2] amplitude:_variable * 10 waveCycle:1 * M_PI / _waveWidth offsetY:22.0f];    // white
+}</code></pre><h3 id="绘制正弦曲线"><a href="#绘制正弦曲线" class="headerlink" title="绘制正弦曲线"></a>绘制正弦曲线</h3><pre><code> - (void)drawWaveWithLayer:(CAShapeLayer *)waveLayer
+           amplitude:(CGFloat)amplitude
+           waveCycle:(CGFloat)waveCycle
+             offsetY:(CGFloat)offsetY
+{
+   CGMutablePathRef path = CGPathCreateMutable();
+   CGFloat y = self.bounds.size.height * 0.5f;
+   CGPathMoveToPoint(path, nil, 0, y);
+
+   for (float x = 0.0f; x &lt;=  _waveWidth ; x++) {
+       y = amplitude * sin(waveCycle * x + _offsetX) + self.frame.size.height * 0.5f + offsetY;   // 正弦波
+       CGPathAddLineToPoint(path, nil, x, y);
+   }
+
+   CGPathAddLineToPoint(path, nil, _waveWidth, self.frame.size.height);
+   CGPathAddLineToPoint(path, nil, 0, self.frame.size.height);
+   CGPathCloseSubpath(path);
+
+   waveLayer.path = path;
+   CGPathRelease(path);
+}</code></pre><h2 id="绘制水滴"><a href="#绘制水滴" class="headerlink" title="绘制水滴"></a>绘制水滴</h2><h3 id="绘制水滴的视图"><a href="#绘制水滴的视图" class="headerlink" title="绘制水滴的视图"></a>绘制水滴的视图</h3><p>自定义一个View继承自UIView,在drawRect中实现：</p>
+<pre><code>- (void)drawRect:(CGRect)rect {
+// Drawing code
+
+CGContextRef context = UIGraphicsGetCurrentContext();
+
+CGContextMoveToPoint(context, self.bounds.size.width * 0.5f, 0);
+
+[[UIColor whiteColor] set];
+CGContextSetLineWidth(context, 1.0);
+
+CGContextAddCurveToPoint(context,
+                         0,
+                         self.bounds.size.height,
+                         self.bounds.size.width,
+                         self.bounds.size.height,
+                         self.bounds.size.width * 0.5f,
+                         0);
+
+CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+CGContextFillPath(context);
+
+CGContextStrokePath(context);
+}</code></pre><p>   这里要保证水滴视图的宽高比为2：1，这样贝塞尔曲线绘制出来的才是水滴形状。</p>
+<h3 id="给水滴添加重力和碰撞检测"><a href="#给水滴添加重力和碰撞检测" class="headerlink" title="给水滴添加重力和碰撞检测"></a>给水滴添加重力和碰撞检测</h3><p>这里用到了UIKit动力学。</p>
+<pre><code>UIGravityBehavior *gravityBeahvior = [[UIGravityBehavior alloc] initWithItems:@[_dripView]];
+[_animator addBehavior:gravityBeahvior];
+
+UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[_dripView]];
+collisionBehavior.translatesReferenceBoundsIntoBoundary = NO;
+
+CGPoint rightEdge = CGPointMake(_barrierLine.frame.origin.x + _barrierLine.frame.size.width,
+                                _barrierLine.frame.origin.y);
+
+[collisionBehavior addBoundaryWithIdentifier:@&quot;barrier&quot;
+                            fromPoint:_barrierLine.frame.origin
+                              toPoint:rightEdge];
+collisionBehavior.collisionDelegate = (id)self;
+[_animator addBehavior:collisionBehavior];
+
+
+UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[_dripView, _barrierLine]];
+itemBehaviour.elasticity = 0.0;
+[_animator addBehavior:itemBehaviour];</code></pre><h2 id="水滴和波浪碰撞后的喷溅效果"><a href="#水滴和波浪碰撞后的喷溅效果" class="headerlink" title="水滴和波浪碰撞后的喷溅效果"></a>水滴和波浪碰撞后的喷溅效果</h2><h3 id="创建圆形水珠"><a href="#创建圆形水珠" class="headerlink" title="创建圆形水珠"></a>创建圆形水珠</h3><pre><code>- (void)splashWater
+{
+if (!_dripLayers) {
+    _dripLayers = [[NSMutableArray alloc] initWithCapacity:kDripCount];
+
+    for (int i = 0; i &lt; kDripCount; i++) {
+
+        CALayer *dripLayer = [CALayer layer];
+        [_dripLayers addObject:dripLayer];
+
+    }
+}
+
+for (int i = 0; i &lt; kDripCount; i++) {
+
+    [self performSelector:@selector(addAnimationToDrip:) withObject:_dripLayers[i] afterDelay:i * 0.01];
+}
+}</code></pre><h3 id="给水珠添加抛物线动画"><a href="#给水珠添加抛物线动画" class="headerlink" title="给水珠添加抛物线动画"></a>给水珠添加抛物线动画</h3><pre><code>- (void)addAnimationToDrip:(CALayer *)dripLayer
+{
+CGFloat width = arc4random() % 15 + 1;
+dripLayer.frame = CGRectMake((self.bounds.size.width - width)* 0.5f, self.bounds.size.height * 0.5f + 40, width, width);
+dripLayer.cornerRadius = dripLayer.frame.size.width * 0.5f;
+dripLayer.backgroundColor = [UIColor whiteColor].CGColor;
+
+[self.layer addSublayer:dripLayer];
+
+CGFloat x3 = arc4random() % ((int)self.bounds.size.width) + 1;
+CGFloat y3 = self.bounds.size.height * 0.5f + 40;
+
+CGFloat height = arc4random() % ((int)(self.bounds.size.height * 0.5f));
+
+[self throwDrip:dripLayer
+           from:dripLayer.position
+             to:CGPointMake(x3, y3)
+         height:height
+       duration:0.7f];
+ }
+
+
+ - (void)throwDrip:(CALayer *)drip
+         from:(CGPoint)start
+           to:(CGPoint)end
+       height:(CGFloat)height
+     duration:(CGFloat)duration
+{
+
+CGMutablePathRef path = CGPathCreateMutable();
+
+CGPathMoveToPoint(path, NULL, start.x, start.y);
+CGPathAddQuadCurveToPoint(path, NULL, (end.x + start.x) * 0.5f, -height, end.x, end.y);
+
+CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];
+[animation setPath:path];
+animation.duration = duration;
+CFRelease(path);
+path = nil;Demotic
+
+[drip addAnimation:animation forKey:@&quot;position&quot;];
+}</code></pre><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p><a href="https://github.com/qcc107/WaterDropDemo.git" target="_blank" rel="noopener">WaterDropDemo</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/09/06/iOS中的仿射变换/" itemprop="url">
                   iOS中的仿射变换
                 </a>
@@ -904,7 +1189,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
