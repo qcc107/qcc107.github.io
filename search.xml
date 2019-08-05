@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Introducing Low-Latency HLS]]></title>
-      <url>http://yoursite.com/2019/07/30/Introducing-Low-Latency-HLS/</url>
+      <url>https://qcc107.github.io/2019/07/30/Introducing-Low-Latency-HLS/</url>
       <content type="html"><![CDATA[<h2 id="HLS-简介"><a href="#HLS-简介" class="headerlink" title="HLS 简介"></a>HLS 简介</h2><p>HLS (HTTP Live Streaming)是Apple的动态码率自适应技术。主要用于PC和Apple终端的音视频服务。HLS的优点是性能高、兼容性好，缺点是实时性差。适合使用在点播和实时性要求不高的场景。苹果今年新发布了一个低延迟HLS规范，目前它是作为单独的草案来构建的。苹果新的低延时的HLS草案设计目标是1到2秒的延时。</p>
 <h2 id="常规HLS时延产生的原因"><a href="#常规HLS时延产生的原因" class="headerlink" title="常规HLS时延产生的原因"></a>常规HLS时延产生的原因</h2><p>HLS 被设计为简单的和健壮的。但这种简单性是有代价的，HLS 通常会带来较高的延时。</p>
 <h3 id="切片和发现机制增加了延时"><a href="#切片和发现机制增加了延时" class="headerlink" title="切片和发现机制增加了延时"></a>切片和发现机制增加了延时</h3><p></p>]]></content>
@@ -21,7 +21,7 @@
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>http://yoursite.com/2019/07/30/hello-world/</url>
+      <url>https://qcc107.github.io/2019/07/30/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
@@ -42,7 +42,7 @@
     
     <entry>
       <title><![CDATA[Safari播放mp4失败的原因分析]]></title>
-      <url>http://yoursite.com/2016/05/31/Safari%E6%92%AD%E6%94%BEmp4%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90/</url>
+      <url>https://qcc107.github.io/2016/05/31/Safari%E6%92%AD%E6%94%BEmp4%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90/</url>
       <content type="html"><![CDATA[<p>最近项目中用系统播放器播放MP4文件出了一个问题，用Safari播不了用Chrome可以播放，细查了原因，发现是服务器的问题，原来服务器不支持Content-Range特性。</p>
 <p>Safari首先读取文件类型头来判断视频文件是否支持。</p>
 <p>因此，对于不支持这个特性的 HTTP 服务器，Safari 就拒绝在线播放，Chrome无此限制。</p>
@@ -63,7 +63,7 @@
     
     <entry>
       <title><![CDATA[Hexo多Mac同步]]></title>
-      <url>http://yoursite.com/2016/05/21/Hexo%E5%A4%9AMac%E5%90%8C%E6%AD%A5/</url>
+      <url>https://qcc107.github.io/2016/05/21/Hexo%E5%A4%9AMac%E5%90%8C%E6%AD%A5/</url>
       <content type="html"><![CDATA[<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>单位和家里两PC，同时都想更新blog。而由于hexo没有后台，而且全部文件都在本地生成，所以如果公司电脑上发表了A文章后回家又写了篇B文章，在家里上传后你会发现只有B文章而A文章没了（因为家里的PC上没有A文章的md文件），所以多台电脑同时用来写文章的时候，需要解决备份问题。</p>
 <p>而常用的备份方案无非两种：</p>
 <ul>
@@ -129,7 +129,7 @@
     
     <entry>
       <title><![CDATA[响应者链深入剖析]]></title>
-      <url>http://yoursite.com/2016/05/20/%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90/</url>
+      <url>https://qcc107.github.io/2016/05/20/%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90/</url>
       <content type="html"><![CDATA[<h2 id="一、事件分类"><a href="#一、事件分类" class="headerlink" title="一、事件分类"></a>一、事件分类</h2><p>对于IOS设备用户来说，他们操作设备的方式主要有三种：触摸屏幕、晃动设备、通过遥控设施控制设备。对应的事件类型有以下三种：</p>
 <p>1、触屏事件（Touch Event）</p>
 <p>2、运动事件（Motion Event）</p>
@@ -184,7 +184,7 @@
     
     <entry>
       <title><![CDATA[第一个Scrapy爬虫(二)]]></title>
-      <url>http://yoursite.com/2016/05/18/%E7%AC%AC%E4%B8%80%E4%B8%AAScrapy%E7%88%AC%E8%99%AB/</url>
+      <url>https://qcc107.github.io/2016/05/18/%E7%AC%AC%E4%B8%80%E4%B8%AAScrapy%E7%88%AC%E8%99%AB/</url>
       <content type="html"><![CDATA[<h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><pre><code>scrapy startproject tutorial</code></pre><p>  如果没有报错，则创建成功</p>
 <p>  在Mac下如果报这个错误：</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  Traceback (most recent <span class="keyword">call</span> <span class="keyword">last</span>):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/usr/local/bin/scrapy"</span>, line <span class="number">7</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.cmdline <span class="keyword">import</span> <span class="keyword">execute</span></span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/__init__.py"</span>, line <span class="number">34</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> Spider</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/spiders/__init__.py"</span>, line <span class="number">10</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/http/__init__.py"</span>, line <span class="number">12</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> scrapy.http.request.rpc <span class="keyword">import</span> XmlRpcRequest</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"/Library/Python/2.7/site-packages/scrapy/http/request/rpc.py"</span>, line <span class="number">7</span>, <span class="keyword">in</span> &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">from</span> six.moves <span class="keyword">import</span> xmlrpc_client <span class="keyword">as</span> xmlrpclib</span><br><span class="line">ImportError: cannot <span class="keyword">import</span> <span class="keyword">name</span> xmlrpc_client</span><br></pre></td></tr></table></figure>
@@ -236,7 +236,7 @@
     
     <entry>
       <title><![CDATA[Mac安装Scrapy(一)]]></title>
-      <url>http://yoursite.com/2016/05/17/Mac%E5%AE%89%E8%A3%85Scrapy/</url>
+      <url>https://qcc107.github.io/2016/05/17/Mac%E5%AE%89%E8%A3%85Scrapy/</url>
       <content type="html"><![CDATA[<p>Scrapy是一个非常好的抓取框架，它提供了一些开箱可用的基础组件，还能够根据需要进行自定义。</p>
 <p>下面就Mac下安装Scrapy的步骤及遇到的错误进行总结：</p>
 <h2 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h2><p>打开终端执行命令：</p>
@@ -262,7 +262,7 @@
     
     <entry>
       <title><![CDATA[三种类型的Block]]></title>
-      <url>http://yoursite.com/2016/05/10/%E4%B8%89%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84Block/</url>
+      <url>https://qcc107.github.io/2016/05/10/%E4%B8%89%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84Block/</url>
       <content type="html"><![CDATA[<h1 id="Block作为属性"><a href="#Block作为属性" class="headerlink" title="Block作为属性"></a>Block作为属性</h1><p>把block作为对象的copy属性,定义：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">Animal </span>: NSObject</span><br><span class="line"><span class="variable">@property</span> (nonatomic,copy) void(^eat)(int);</span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">@implementation</span> Person</span><br><span class="line">- (void)hungry</span><br><span class="line">&#123;</span><br><span class="line">    <span class="selector-tag">_eat</span>(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line">@<span class="selector-tag">end</span></span><br></pre></td></tr></table></figure>
 
@@ -294,7 +294,7 @@
     
     <entry>
       <title><![CDATA[objective-c中的缓存-NSCache]]></title>
-      <url>http://yoursite.com/2016/05/09/objective-c%E4%B8%AD%E7%9A%84%E7%BC%93%E5%AD%98-nscache/</url>
+      <url>https://qcc107.github.io/2016/05/09/objective-c%E4%B8%AD%E7%9A%84%E7%BC%93%E5%AD%98-nscache/</url>
       <content type="html"><![CDATA[<p>NSCache是系统提供的一种类似于集合（NSMutableDictionary）的缓存，它与集合的不同如下：</p>
 <ol>
 <li><p>NSCache具有自动删除的功能，以减少系统占用的内存；</p>
@@ -355,7 +355,7 @@
     
     <entry>
       <title><![CDATA[hexo常用命令]]></title>
-      <url>http://yoursite.com/2016/04/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      <url>https://qcc107.github.io/2016/04/10/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h4 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h4><p>hexo n == hexo new</p>
 <p>hexo p == hexo publish</p>
 <p>hexo g == hexo generate</p>
@@ -386,7 +386,7 @@
     
     <entry>
       <title><![CDATA[自我管理的破窗效应]]></title>
-      <url>http://yoursite.com/2016/04/10/%E8%87%AA%E6%88%91%E7%AE%A1%E7%90%86%E7%9A%84%E7%A0%B4%E7%AA%97%E6%95%88%E5%BA%94/</url>
+      <url>https://qcc107.github.io/2016/04/10/%E8%87%AA%E6%88%91%E7%AE%A1%E7%90%86%E7%9A%84%E7%A0%B4%E7%AA%97%E6%95%88%E5%BA%94/</url>
       <content type="html"><![CDATA[<pre><code>在《程序员修炼之道——从小工到专家》这本书里，有这么一段描述：
 
 在市区，有些建筑漂亮而整洁，而另一些却是破败不堪的“废弃船只”。为什么？犯罪和城市衰退领域的研究者发现了一种迷人的触发机制，
@@ -420,7 +420,7 @@
     
     <entry>
       <title><![CDATA[Vim命令合集]]></title>
-      <url>http://yoursite.com/2015/09/24/Vim%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</url>
+      <url>https://qcc107.github.io/2015/09/24/Vim%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</url>
       <content type="html"><![CDATA[<h1 id="命令历史"><a href="#命令历史" class="headerlink" title="命令历史"></a>命令历史</h1><pre><code>以:和/开头的命令都有历史纪录，可以首先键入:或/然后按上下箭头来选择某个历史命令。</code></pre><h1 id="启动vim"><a href="#启动vim" class="headerlink" title="启动vim"></a>启动vim</h1><p>在命令行窗口中输入以下命令即可</p>
 <pre><code>vim 直接启动vim
 
@@ -662,7 +662,7 @@ $ vimtutor
     
     <entry>
       <title><![CDATA[WWDC 2015: AUTO LAYOUT在iOS 9上的改进]]></title>
-      <url>http://yoursite.com/2015/09/23/WWDC-2015-AUTO-LAYOUT%E5%9C%A8iOS-9%E4%B8%8A%E7%9A%84%E6%94%B9%E8%BF%9B/</url>
+      <url>https://qcc107.github.io/2015/09/23/WWDC-2015-AUTO-LAYOUT%E5%9C%A8iOS-9%E4%B8%8A%E7%9A%84%E6%94%B9%E8%BF%9B/</url>
       <content type="html"><![CDATA[<p>自从AUTO LAYOUT在iOS 6中引入以来,我一直深深的为之着迷，特别是通过直接在代码中使用它,而不是使用故事板。但它在代码中使用非常冗长。我写了一些类,使代码更加紧凑。但我不满意我的解决方案。所以我计划在WWDC期间去一个实验室,咨询一个苹果AUTO LAYOUT工程师对这个问题的看法。但是事实证明我不需要!苹果解决了大部分我在AUTO LAYOUT中遇到的问题在iOS 9的API中!在这篇文章中我想突出的新API更容易使用自动布局在代码和故事板! 在这片文章中，我将分别用代码和Storyboard展示用新的API使用AUTO LAYOUT是如何简单易用。</p>
 <h2 id="什么是AUTO-LAYOUT"><a href="#什么是AUTO-LAYOUT" class="headerlink" title="什么是AUTO LAYOUT"></a>什么是AUTO LAYOUT</h2><p>对于那些AUTO LAYOUT的新手，我想快速的过一下这东西到底是什么。AUTO LAYOUT是一个机制,用它可以很容易地支持不同的屏幕尺寸。<br>AUTO LAYOUT的核心是极其简单的。它使用“约束”来确定视图在屏幕上的x,y,宽度和高度属性。约束是描述一个视图的位置和大小的规则。一个视图需要多个约束来正确的定位和限制大小。约束和所代表它的类youtConstraint仅仅是遵循这个公式:</p>
 <pre><code>view1.attribute1 = view2.attribute2 x A + B</code></pre><p>这是AUTO LAYOUT的核心,所有的约束都遵循这种模式。使用一系列遵循这种模式的约束你可以布局一切，它将在巧妙的缩放来适应不同的屏幕尺寸。<br>例如:</p>
@@ -770,7 +770,7 @@ multiplier: 1,
     
     <entry>
       <title><![CDATA[CocoaPods安装和使用]]></title>
-      <url>http://yoursite.com/2015/09/16/CocoaPods%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+      <url>https://qcc107.github.io/2015/09/16/CocoaPods%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<h1 id="CocoaPods是什么？"><a href="#CocoaPods是什么？" class="headerlink" title="CocoaPods是什么？"></a>CocoaPods是什么？</h1><p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库。总之，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。这个时候，你需要 CocoaPods。</p>
 <p>CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</p>
 <h1 id="下载和安装"><a href="#下载和安装" class="headerlink" title="下载和安装"></a>下载和安装</h1><p>在安装CocoaPods之前，首先要在本地安装好Ruby环境。至于如何在Mac中安装好Ruby环境，请google一下，本文不再涉及。</p>
@@ -950,7 +950,7 @@ Integrating client project</code></pre><h5 id="4-添加代码。"><a href="#4-�
     
     <entry>
       <title><![CDATA[阻碍我们成功的八种行为]]></title>
-      <url>http://yoursite.com/2015/09/15/%E9%98%BB%E7%A2%8D%E6%88%91%E4%BB%AC%E6%88%90%E5%8A%9F%E7%9A%84%E5%85%AB%E7%A7%8D%E8%A1%8C%E4%B8%BA/</url>
+      <url>https://qcc107.github.io/2015/09/15/%E9%98%BB%E7%A2%8D%E6%88%91%E4%BB%AC%E6%88%90%E5%8A%9F%E7%9A%84%E5%85%AB%E7%A7%8D%E8%A1%8C%E4%B8%BA/</url>
       <content type="html"><![CDATA[<pre><code>你白天黑夜忙个不停，但在事业上却没什么进展。知道吗？可能是你的那些糟糕习惯毁了自己。</code></pre><p>来源：网络</p>
 <p> 有时候，我们会是自己最坏的敌人。我们有意或无意中做的事情会阻挠而不是促进我们成功。排除这些具有破坏性的行为的第一步就是认识它们。以下是最糟糕的八种行为：</p>
 <h2 id="1-将忙碌与高效混为一谈"><a href="#1-将忙碌与高效混为一谈" class="headerlink" title="1.将忙碌与高效混为一谈"></a>1.将忙碌与高效混为一谈</h2><blockquote>
@@ -1000,7 +1000,7 @@ Integrating client project</code></pre><h5 id="4-添加代码。"><a href="#4-�
     
     <entry>
       <title><![CDATA[一个水滴动画的实现]]></title>
-      <url>http://yoursite.com/2015/09/14/%E4%B8%80%E4%B8%AA%E6%B0%B4%E6%BB%B4%E5%8A%A8%E7%94%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+      <url>https://qcc107.github.io/2015/09/14/%E4%B8%80%E4%B8%AA%E6%B0%B4%E6%BB%B4%E5%8A%A8%E7%94%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
       <content type="html"><![CDATA[<p>由于项目需求，最近做了一个水滴落下的加载动画。最简单的实现当然是用UIImageView直接播放，但是考虑到动画的帧数太多，会导致整个应用程序包增大，还有水滴落下和水面碰撞的效果不够随机，最后直接用纯代码实现。</p>
 <h2 id="波纹的实现"><a href="#波纹的实现" class="headerlink" title="波纹的实现"></a>波纹的实现</h2><p>波浪动画用CAShapeLayer和正弦曲线来模拟，刷新频率为屏幕刷新频率的一半，即30帧每秒。屏幕的刷新用到CADisplayLink,CADisplayLink的精确度优于NSTimer，非常适合这种和屏幕刷新相关的操作。</p>
 <h3 id="加载波形层"><a href="#加载波形层" class="headerlink" title="加载波形层"></a>加载波形层</h3><pre><code>- (void)loadWaveLayers{
@@ -1187,7 +1187,7 @@ path = nil;Demotic
     
     <entry>
       <title><![CDATA[iOS中的仿射变换]]></title>
-      <url>http://yoursite.com/2015/09/06/iOS%E4%B8%AD%E7%9A%84%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2/</url>
+      <url>https://qcc107.github.io/2015/09/06/iOS%E4%B8%AD%E7%9A%84%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2/</url>
       <content type="html"><![CDATA[<p>   在开发中我们有时需要对视图做旋转和缩放，iOS提供了三种仿射变换：平移、旋转、和缩放。</p>
 <h2 id="一、仿射变换"><a href="#一、仿射变换" class="headerlink" title="一、仿射变换"></a>一、仿射变换</h2><p>   每个仿射变换可以由一个矩阵A和一个向量b给出，它可以写作A和一个附加的列b。一个仿射变换对应于一个矩阵和一个向量的乘法，而仿射变换的复合对应于普通的矩阵乘法。</p>
 <h3 id="CGAffineTransform结构体"><a href="#CGAffineTransform结构体" class="headerlink" title="CGAffineTransform结构体"></a>CGAffineTransform结构体</h3><pre><code>struct CGAffineTransform {
@@ -1244,7 +1244,7 @@ path = nil;Demotic
     
     <entry>
       <title><![CDATA[拆掉思维里的墙经典语录]]></title>
-      <url>http://yoursite.com/2015/09/03/%E6%8B%86%E6%8E%89%E6%80%9D%E7%BB%B4%E9%87%8C%E7%9A%84%E5%A2%99%E7%BB%8F%E5%85%B8%E8%AF%AD%E5%BD%95/</url>
+      <url>https://qcc107.github.io/2015/09/03/%E6%8B%86%E6%8E%89%E6%80%9D%E7%BB%B4%E9%87%8C%E7%9A%84%E5%A2%99%E7%BB%8F%E5%85%B8%E8%AF%AD%E5%BD%95/</url>
       <content type="html"><![CDATA[<h5 id="你是否缺少安全感？你会经常觉得累吗？结婚一定要买房吗？坚持一定会成功吗？努力一定有结果？只有有钱才能够幸福？老板可以掌控吗？小人物就无法对抗不公平吗？你对如今的生活不满意，但却因为父母、老婆或者孩子不得不这样过下去吗？每天都在混日子，却幻想有一天找到自己真正喜欢的事业就一定会全心投入？……如果有一个回答是“YES”，那么这本书就是你想要的。也许，连我们自己也不曾意识到，那些困惑背后，往往藏着一堵堵思维里的墙，阻碍着我们，把我们与美好的生活隔开了。拆掉思维里的那些墙，你就可以获得成功、快乐、自信和幸福。从“IMPOSSIBLE”到“I’M-POSSIBLE”，只须一点改变，你的人生也许就此大不相同。我们应该冲出牢笼，努力投资自己，哪怕工资不高，也要拿出一部分资金来强大自己，让自己更有价值。也不要因为职业安全感把自己困住，走出去追求自己想要的生活。"><a href="#你是否缺少安全感？你会经常觉得累吗？结婚一定要买房吗？坚持一定会成功吗？努力一定有结果？只有有钱才能够幸福？老板可以掌控吗？小人物就无法对抗不公平吗？你对如今的生活不满意，但却因为父母、老婆或者孩子不得不这样过下去吗？每天都在混日子，却幻想有一天找到自己真正喜欢的事业就一定会全心投入？……如果有一个回答是“YES”，那么这本书就是你想要的。也许，连我们自己也不曾意识到，那些困惑背后，往往藏着一堵堵思维里的墙，阻碍着我们，把我们与美好的生活隔开了。拆掉思维里的那些墙，你就可以获得成功、快乐、自信和幸福。从“IMPOSSIBLE”到“I’M-POSSIBLE”，只须一点改变，你的人生也许就此大不相同。我们应该冲出牢笼，努力投资自己，哪怕工资不高，也要拿出一部分资金来强大自己，让自己更有价值。也不要因为职业安全感把自己困住，走出去追求自己想要的生活。" class="headerlink" title="你是否缺少安全感？你会经常觉得累吗？结婚一定要买房吗？坚持一定会成功吗？努力一定有结果？只有有钱才能够幸福？老板可以掌控吗？小人物就无法对抗不公平吗？你对如今的生活不满意，但却因为父母、老婆或者孩子不得不这样过下去吗？每天都在混日子，却幻想有一天找到自己真正喜欢的事业就一定会全心投入？……如果有一个回答是“YES”，那么这本书就是你想要的。也许，连我们自己也不曾意识到，那些困惑背后，往往藏着一堵堵思维里的墙，阻碍着我们，把我们与美好的生活隔开了。拆掉思维里的那些墙，你就可以获得成功、快乐、自信和幸福。从“IMPOSSIBLE”到“I’M POSSIBLE”，只须一点改变，你的人生也许就此大不相同。我们应该冲出牢笼，努力投资自己，哪怕工资不高，也要拿出一部分资金来强大自己，让自己更有价值。也不要因为职业安全感把自己困住，走出去追求自己想要的生活。"></a>你是否缺少安全感？你会经常觉得累吗？结婚一定要买房吗？坚持一定会成功吗？努力一定有结果？只有有钱才能够幸福？老板可以掌控吗？小人物就无法对抗不公平吗？你对如今的生活不满意，但却因为父母、老婆或者孩子不得不这样过下去吗？每天都在混日子，却幻想有一天找到自己真正喜欢的事业就一定会全心投入？……如果有一个回答是“YES”，那么这本书就是你想要的。也许，连我们自己也不曾意识到，那些困惑背后，往往藏着一堵堵思维里的墙，阻碍着我们，把我们与美好的生活隔开了。拆掉思维里的那些墙，你就可以获得成功、快乐、自信和幸福。从“IMPOSSIBLE”到“I’M POSSIBLE”，只须一点改变，你的人生也许就此大不相同。我们应该冲出牢笼，努力投资自己，哪怕工资不高，也要拿出一部分资金来强大自己，让自己更有价值。也不要因为职业安全感把自己困住，走出去追求自己想要的生活。</h5><ul>
 <li><p>1、对于大多数刚走入社会的人来说，一套房子就能消灭一个梦想。</p>
 </li>
@@ -1366,7 +1366,7 @@ path = nil;Demotic
     
     <entry>
       <title><![CDATA[UNIX编程艺术之策略与机制相分离]]></title>
-      <url>http://yoursite.com/2015/09/01/UNIX%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF%E4%B9%8B%E7%AD%96%E7%95%A5%E4%B8%8E%E6%9C%BA%E5%88%B6%E7%9B%B8%E5%88%86%E7%A6%BB/</url>
+      <url>https://qcc107.github.io/2015/09/01/UNIX%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF%E4%B9%8B%E7%AD%96%E7%95%A5%E4%B8%8E%E6%9C%BA%E5%88%B6%E7%9B%B8%E5%88%86%E7%A6%BB/</url>
       <content type="html"><![CDATA[<p>categories: </p>
 <ul>
 <li>IT随笔</li>
@@ -1390,7 +1390,7 @@ path = nil;Demotic
     
     <entry>
       <title><![CDATA[S.O.L.I.D.类设计原则]]></title>
-      <url>http://yoursite.com/2012/07/25/S-O-L-I-D-%E7%B1%BB%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</url>
+      <url>https://qcc107.github.io/2012/07/25/S-O-L-I-D-%E7%B1%BB%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</url>
       <content type="html"><![CDATA[<p>   本文是由敏捷宣言签署人之一、《 Clean Code(代码整洁之道)》一书的作者Robert C. Martin为他的《Applying Principles and Patterns》这本书搜集整理而来。</p>
 <h2 id="单一责任原则-SRP"><a href="#单一责任原则-SRP" class="headerlink" title="单一责任原则(SRP)"></a>单一责任原则(SRP)</h2><p>只有一个理由去修改一个类。例如，如果一个业务规则的改变会导致这个类的修改，那么，数据库、界面、报表格式或系统任何其它的部分的改变都不该迫使这个类做修改。</p>
 <h2 id="开发-关闭原则-OCP"><a href="#开发-关闭原则-OCP" class="headerlink" title="开发/关闭原则(OCP)"></a>开发/关闭原则(OCP)</h2><p>软件构成(类，模块，方法等)向扩展行为开放，向修改行为关闭。</p>
